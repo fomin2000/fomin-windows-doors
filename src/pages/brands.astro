@@ -1,0 +1,64 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import BrandGrid from '../components/BrandGrid.astro';
+import CtaBand from '../components/CtaBand.astro';
+import MissingNote from '../components/MissingNote.astro';
+import { brands } from '../data/brands';
+---
+<Base
+  title="Window & Door Brands We Install"
+  description="Fomin Windows & Doors installs windows and doors from Milgard, Alpine, Andersen, Ply Gem, JELD-WEN, Cascade and Marvin in Salem, OR and nearby communities."
+>
+  <PageHero
+    title="Brands we install"
+    eyebrow="Our suppliers"
+    lead={`We install windows and doors from ${brands.length} leading manufacturers, so we can match the right product to your home, style and budget.`}
+    crumbs={[{ label: 'Brands We Install' }]}
+  />
+
+  <section class="section">
+    <div class="container">
+      <BrandGrid />
+      <MissingNote>
+        Official manufacturer logos. Download each logo from the manufacturer's dealer/partner portal or request it
+        from your sales rep, then save it as <code>src/assets/brands/&lt;name&gt;.svg</code> (milgard, alpine,
+        andersen, ply-gem, jeld-wen, cascade, marvin). Use the logos as provided — manufacturers usually do not allow
+        changes to their logos.
+      </MissingNote>
+    </div>
+  </section>
+
+  <section class="section section--gray">
+    <div class="container split">
+      <div>
+        <h2>Why we work with several brands</h2>
+        <p class="lead">
+          No single product line is the best fit for every home. Working with several manufacturers lets us compare
+          materials, styles, colors, lead times and price points with you.
+        </p>
+      </div>
+      <ul class="check-list">
+        <li>Vinyl, fiberglass, wood, clad-wood and composite options</li>
+        <li>Products suited to Pacific Northwest weather</li>
+        <li>Options across a range of budgets</li>
+        <li>Manufacturer warranties vary by brand and product line — we will review them with you</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose">
+      <p class="fine">
+        All product names, logos and brands are property of their respective owners and are used here only to identify
+        the products we install. Their use does not imply endorsement by, or affiliation with, these manufacturers.
+      </p>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .fine { font-size: 0.875rem; color: var(--gray-600); }
+</style>

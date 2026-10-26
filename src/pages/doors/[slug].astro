@@ -1,0 +1,10 @@
+---
+import ProductDetail from '../../components/ProductDetail.astro';
+import { doors } from '../../data/products';
+
+export function getStaticPaths() {
+  return doors.map((product) => ({ params: { slug: product.slug }, props: { product } }));
+}
+const { product } = Astro.props;
+---
+<ProductDetail product={product} kind="doors" />

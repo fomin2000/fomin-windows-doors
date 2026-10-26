@@ -1,0 +1,12 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+---
+<Base title="Page not found" description="The page you were looking for could not be found." noindex>
+  <PageHero
+    title="Sorry, we couldn't find that page"
+    lead="The page may have moved. Try the links below, or call us — we're happy to help."
+  >
+    <p><a href="/">Home</a> · <a href="/windows/">Windows</a> · <a href="/doors/">Doors</a> · <a href="/services/">Services</a> · <a href="/contact/">Contact</a></p>
+  </PageHero>
+</Base>

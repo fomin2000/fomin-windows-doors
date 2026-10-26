@@ -1,0 +1,152 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from './PageHero.astro';
+import Icon from './Icon.astro';
+import Photo from './Photo.astro';
+import StyleGrid from './StyleGrid.astro';
+import BrandGrid from './BrandGrid.astro';
+import CtaBand from './CtaBand.astro';
+import { materials, windows, doors, type Product } from '../data/products';
+
+interface Props {
+  product: Product;
+  kind: 'windows' | 'doors';
+}
+const { product: p, kind } = Astro.props;
+const all = kind === 'windows' ? windows : doors;
+const others = all.filter((o) => o.slug !== p.slug);
+const base = kind === 'windows' ? '/windows/' : '/doors/';
+const kindLabel = kind === 'windows' ? 'Windows' : 'Doors';
+const service = kind === 'windows' ? 'window-replacement' : 'door-replacement';
+---
+<Base title={`${p.name} in Salem, OR`} description={p.description}>
+  <PageHero
+    title={p.name}
+    eyebrow={p.blurb}
+    lead={p.intro[0]}
+    crumbs={[{ label: kindLabel, href: base }, { label: p.name }]}
+  >
+    <div slot="media" class="product-icon">
+      <Icon name={p.icon} size={220} label={`${p.name} illustration`} />
+    </div>
+  </PageHero>
+
+  <section class="section">
+    <div class="container split">
+      <div class="prose">
+        <h2>About {p.name.toLowerCase()}</h2>
+        {p.intro.slice(1).map((t) => <p>{t}</p>)}
+        <h3>A great fit for</h3>
+        <ul class="check-list">
+          {p.bestFor.map((b) => <li>{b}</li>)}
+        </ul>
+        <h3>Things to consider</h3>
+        <ul>
+          {p.considerations.map((c) => <li>{c}</li>)}
+        </ul>
+      </div>
+      <Photo
+        name={`${kind}-${p.slug}`}
+        alt={`${p.name} installed in a home`}
+        need={`A daylight photo of ${p.name.toLowerCase()} you have installed.`}
+        icon={p.icon}
+      />
+    </div>
+  </section>
+
+  <section class="section section--gray">
+    <div class="container">
+      <div class="section-head">
+        <h2>Why homeowners choose {p.name.toLowerCase()}</h2>
+      </div>
+      <div class="grid grid-3">
+        {
+          p.highlights.map((h) => (
+            <div class="card">
+              <h3>{h.title}</h3>
+              <p>{h.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>Materials &amp; options</h2>
+        <p class="lead">
+          Available materials, colors, glass and hardware depend on the manufacturer and product line. We will walk
+          you through the options that make sense for your home.
+        </p>
+      </div>
+      <ul class="grid grid-4 materials">
+        {
+          materials.map((m) => (
+            <li class="card">
+              <h3>{m.name}</h3>
+              <p>{m.text}</p>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="install-note">
+        Every installation includes an inspection for dry rot and proper flashing.{' '}
+        <a href={`/services/${service}/`}>See what our installation includes →</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--gray">
+    <div class="container">
+      <div class="section-head">
+        <h2>Brands we install</h2>
+      </div>
+      <BrandGrid />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>Explore other {kind === 'windows' ? 'window' : 'door'} styles</h2>
+      </div>
+      <StyleGrid items={others} base={base} showBlurb={false} />
+    </div>
+  </section>
+
+  <CtaBand title={`Interested in ${p.name.toLowerCase()}?`} />
+</Base>
+
+<style>
+  .product-icon {
+    display: grid;
+    place-items: center;
+    width: min(100%, 360px);
+    aspect-ratio: 1;
+    border-radius: 24px;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    color: var(--navy);
+    box-shadow: var(--shadow);
+  }
+  .product-icon :global(svg) {
+    width: 62%;
+    height: auto;
+  }
+  .materials {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr));
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .materials p {
+    color: var(--gray-600);
+    font-size: 0.9688rem;
+  }
+  .install-note {
+    margin-top: 28px;
+    font-weight: 500;
+  }
+</style>

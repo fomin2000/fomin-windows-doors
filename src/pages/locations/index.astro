@@ -1,0 +1,60 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import UiIcon from '../../components/UiIcon.astro';
+import { locations } from '../../data/locations';
+
+const byState = [
+  { name: 'Oregon', items: locations.filter((l) => l.state === 'OR') },
+  { name: 'California', items: locations.filter((l) => l.state === 'CA') },
+];
+---
+<Base
+  title="Locations — Salem, Portland, Sacramento & Roseville"
+  description="Fomin Windows & Doors branch locations. Now serving Salem, OR and communities within 40 miles, with Portland, OR and Sacramento and Roseville, CA branches coming soon."
+>
+  <PageHero
+    title="Find your local branch"
+    eyebrow="Locations"
+    lead="We are launching in Salem, Oregon and growing into a multi-branch company. Choose a location to see its service area."
+    crumbs={[{ label: 'Locations' }]}
+  />
+
+  <section class="section">
+    <div class="container">
+      {
+        byState.map((st) => (
+          <div class="state">
+            <h2>{st.name}</h2>
+            <ul class="grid grid-2 loc-list">
+              {st.items.map((l) => (
+                <li>
+                  <a class="card card--link loc" href={`/locations/${l.slug}/`}>
+                    <span class:list={['pill', { 'pill--soon': l.status !== 'active' }]}>
+                      {l.status === 'active' ? 'Now serving' : 'Coming soon'}
+                    </span>
+                    <h3><UiIcon name="pin" size={22} /> {l.city}, {l.state}</h3>
+                    <p>{l.description}</p>
+                    <span class="more">View {l.city} branch →</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .state + .state { margin-top: 56px; }
+  .loc-list { list-style: none; padding: 0; margin: 0; }
+  .loc { height: 100%; }
+  .loc h3 { display: flex; align-items: center; gap: 8px; margin-top: 14px; font-size: 1.5rem; }
+  .loc h3 :global(svg) { color: var(--blue); }
+  .loc p { color: var(--gray-600); }
+</style>

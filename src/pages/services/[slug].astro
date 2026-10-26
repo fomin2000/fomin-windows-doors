@@ -1,0 +1,110 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import Photo from '../../components/Photo.astro';
+import ServiceCards from '../../components/ServiceCards.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { services, type Service } from '../../data/services';
+
+export function getStaticPaths() {
+  return services.map((service) => ({ params: { slug: service.slug }, props: { service } }));
+}
+const { service: s } = Astro.props as { service: Service };
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: s.faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+---
+<Base title={`${s.name} in Salem, OR`} description={s.description} schema={faqSchema}>
+  <PageHero
+    title={s.name}
+    eyebrow="Services"
+    lead={s.intro[0]}
+    crumbs={[{ label: 'Services', href: '/services/' }, { label: s.name }]}
+  >
+    <Photo
+      slot="media"
+      name={`service-${s.slug}`}
+      alt={`${s.name} project`}
+      need={`A daylight photo of a ${s.name.toLowerCase()} project (before/after photos work well).`}
+      icon={s.icon}
+      eager
+    />
+  </PageHero>
+
+  <section class="section">
+    <div class="container split split--top">
+      <div class="prose">
+        {s.intro.slice(1).map((t) => <p class="lead">{t}</p>)}
+      </div>
+      {
+        s.signs && (
+          <div class="card signs">
+            <h2 class="h3">{s.signs.title}</h2>
+            <ul class="check-list">
+              {s.signs.items.map((i) => <li>{i}</li>)}
+            </ul>
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  <section class="section section--gray">
+    <div class="container">
+      <div class="section-head">
+        <h2>What's included</h2>
+      </div>
+      <ol class="grid grid-3 included">
+        {
+          s.includes.map((i, n) => (
+            <li class="card">
+              <span class="included__num" aria-hidden="true">{String(n + 1).padStart(2, '0')}</span>
+              <h3>{i.title}</h3>
+              <p>{i.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container faq-wrap">
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        {
+          s.faqs.map((f) => (
+            <details>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--gray">
+    <div class="container">
+      <div class="section-head">
+        <h2>Related services</h2>
+      </div>
+      <ServiceCards only={s.related} />
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .split--top { align-items: start; }
+  .h3 { font-size: 1.25rem; }
+  .signs { background: var(--gray); border: 0; }
+  .included { list-style: none; padding: 0; margin: 0; }
+  .included p { color: var(--gray-600); }
+  .included__num { display: block; font-weight: 800; color: var(--blue); font-size: 0.875rem; letter-spacing: 0.08em; margin-bottom: 10px; }
+  .faq-wrap { max-width: 860px; }
+</style>

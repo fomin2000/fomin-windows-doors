@@ -1,0 +1,61 @@
+---
+// Manufacturer logos. Official logo files go in src/assets/brands/<slug>.svg|png|webp.
+// Until a file exists, a neutral name card is shown.
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+import { brands } from '../data/brands';
+
+const files = import.meta.glob<{ default: ImageMetadata }>('../assets/brands/*.{svg,png,webp,jpg}', { eager: true });
+const logoFor = (slug: string) =>
+  Object.entries(files).find(([p]) => p.replace(/^.*\//, '').replace(/\.[^.]+$/, '') === slug)?.[1].default;
+---
+<ul class="brands">
+  {
+    brands.map((b) => {
+      const logo = logoFor(b.slug);
+      return (
+        <li class="brand">
+          {logo ? (
+            <Image src={logo} alt={`${b.name} logo`} height={56} class="brand__logo" />
+          ) : (
+            <span class="brand__name">{b.name}</span>
+          )}
+        </li>
+      );
+    })
+  }
+</ul>
+
+<style>
+  .brands {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+  .brand {
+    display: grid;
+    place-items: center;
+    min-height: 104px;
+    padding: 20px;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 1px 2px rgb(13 34 54 / 4%);
+  }
+  .brand__logo {
+    max-height: 56px;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+  }
+  .brand__name {
+    font-size: 1.25rem;
+    font-weight: 750;
+    letter-spacing: 0.01em;
+    color: var(--navy);
+    text-align: center;
+  }
+</style>

@@ -1,0 +1,57 @@
+---
+const steps = [
+  { title: 'Free consultation', text: 'Call or email us. We visit your home, look at your windows and doors, and talk through your goals and budget.' },
+  { title: 'Estimate & choices', text: 'You receive a written estimate and help choosing styles, materials and brands that fit your home.' },
+  { title: 'Precise measuring', text: 'Every opening is measured individually so your windows and doors fit correctly.' },
+  { title: 'Professional installation', text: 'Certified master installers remove the old units, repair any rot, then flash, seal and trim the new ones.' },
+  { title: 'Walk-through & clean-up', text: 'We show you how everything operates, make final adjustments, and clean up the work area.' },
+];
+---
+<ol class="steps">
+  {
+    steps.map((s, i) => (
+      <li class="step">
+        <span class="step__num" aria-hidden="true">{i + 1}</span>
+        <h3>{s.title}</h3>
+        <p>{s.text}</p>
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  .steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+    counter-reset: step;
+  }
+  .step {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+  }
+  .step__num {
+    display: inline-grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--blue);
+    color: var(--white);
+    font-weight: 750;
+    margin-bottom: 14px;
+  }
+  .step h3 {
+    font-size: 1.0625rem;
+  }
+  .step p {
+    margin: 0;
+    color: var(--gray-600);
+    font-size: 0.9688rem;
+  }
+</style>

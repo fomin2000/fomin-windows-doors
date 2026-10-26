@@ -1,0 +1,66 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Photo from '../components/Photo.astro';
+import CtaBand from '../components/CtaBand.astro';
+import MissingNote from '../components/MissingNote.astro';
+
+// Add your own project photos to src/assets/photos/ named gallery-1.jpg,
+// gallery-2.jpg, ... and edit the captions below.
+const items = [
+  { name: 'gallery-1', caption: 'Window replacement', icon: 'double-hung' },
+  { name: 'gallery-2', caption: 'Entry door installation', icon: 'entry-door' },
+  { name: 'gallery-3', caption: 'Sliding patio door', icon: 'sliding-door' },
+  { name: 'gallery-4', caption: 'Dry rot repair — before & after', icon: 'dry-rot' },
+  { name: 'gallery-5', caption: 'Bay window', icon: 'bay' },
+  { name: 'gallery-6', caption: 'Exterior trim & flashing', icon: 'trim' },
+  { name: 'gallery-7', caption: 'Casement windows', icon: 'casement' },
+  { name: 'gallery-8', caption: 'French patio doors', icon: 'french-door' },
+  { name: 'gallery-9', caption: 'Picture window', icon: 'picture' },
+];
+---
+<Base
+  title="Project Gallery"
+  description="Photos of window replacement, door installation, dry rot repair and trim projects by Fomin Windows & Doors in Salem, OR and nearby communities."
+>
+  <PageHero
+    title="Project gallery"
+    eyebrow="Gallery"
+    lead="A look at windows, doors, dry rot repairs and trim work completed by our team."
+    crumbs={[{ label: 'Gallery' }]}
+  />
+
+  <section class="section">
+    <div class="container">
+      <MissingNote>
+        Real project photos. Only use photos of your own completed work (or photos you have permission to use).
+        Add them as <code>src/assets/photos/gallery-1.jpg</code>, <code>gallery-2.jpg</code>, and so on — they are
+        automatically resized and optimized.
+      </MissingNote>
+      <ul class="gallery">
+        {
+          items.map((i) => (
+            <li>
+              <figure>
+                <Photo name={i.name} alt={i.caption} need={i.caption} icon={i.icon} sizes="(min-width: 900px) 33vw, (min-width: 600px) 50vw, 100vw" />
+                <figcaption>{i.caption}</figcaption>
+              </figure>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand title="Want results like these at your home?" />
+</Base>
+
+<style>
+  .gallery {
+    list-style: none; padding: 0; margin: 0;
+    display: grid; gap: 24px;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+  }
+  figure { margin: 0; }
+  figcaption { margin-top: 10px; font-weight: 650; color: var(--navy); }
+</style>

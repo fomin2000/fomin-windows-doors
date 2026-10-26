@@ -1,0 +1,62 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import ServiceCards from '../../components/ServiceCards.astro';
+import ProcessSteps from '../../components/ProcessSteps.astro';
+import Icon from '../../components/Icon.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import Photo from '../../components/Photo.astro';
+---
+<Base
+  title="Window & Door Services in Salem, OR"
+  description="Window and door replacement, dry rot repair, waterproofing and flashing, and window and door trim in Salem, OR and within 40 miles."
+>
+  <PageHero
+    title="Our services"
+    eyebrow="Services"
+    lead="Everything it takes to get a window or door opening right — from the new unit itself to the framing, flashing and trim around it."
+    crumbs={[{ label: 'Services' }]}
+  >
+    <Photo
+      slot="media"
+      name="services-hero"
+      alt="Installer fitting a new window into a prepared opening"
+      need="A daylight photo of your crew installing a window or door."
+      icon="casement"
+      eager
+    />
+  </PageHero>
+
+  <section class="section">
+    <div class="container">
+      <ServiceCards />
+    </div>
+  </section>
+
+  <section class="section section--gray">
+    <div class="container split">
+      <div>
+        <p class="eyebrow">Energy</p>
+        <h2>Energy savings &amp; tax credits</h2>
+        <p class="lead">Learn what changed with the federal tax credit for windows and doors, and how efficient products can still help.</p>
+        <a class="btn btn--outline" href="/energy-tax-credits/">Read the guide</a>
+      </div>
+      <div class="energy-icon"><Icon name="energy" size={160} /></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>How a project works</h2>
+      </div>
+      <ProcessSteps />
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .energy-icon { display: grid; place-items: center; color: var(--navy); }
+</style>

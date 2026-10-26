@@ -1,0 +1,294 @@
+---
+import Base from '../layouts/Base.astro';
+import Photo from '../components/Photo.astro';
+import UiIcon from '../components/UiIcon.astro';
+import StyleGrid from '../components/StyleGrid.astro';
+import ServiceCards from '../components/ServiceCards.astro';
+import CertifiedSection from '../components/CertifiedSection.astro';
+import ProcessSteps from '../components/ProcessSteps.astro';
+import BrandGrid from '../components/BrandGrid.astro';
+import CtaBand from '../components/CtaBand.astro';
+import MissingNote from '../components/MissingNote.astro';
+import { SITE, ESTIMATE_HREF } from '../data/site';
+import { windows, doors } from '../data/products';
+import { locations, getLocation } from '../data/locations';
+
+const salem = getLocation('salem-or');
+const featuredAreas = salem.areas.slice(0, 24);
+---
+<Base
+  title="Fomin Windows & Doors | Window & Door Replacement in Salem, OR"
+  description="Window and door replacement, dry rot repair, waterproofing and trim in Salem, OR and within 40 miles. Certified master installers. Call (503) 583-7956 for a free estimate."
+>
+  <section class="hero">
+    <div class="container hero__inner">
+      <div class="hero__text">
+        <p class="eyebrow">Salem, Oregon · Windows &amp; Doors</p>
+        <h1>Beautiful windows and doors, installed the right way.</h1>
+        <p class="lead">
+          Replacement windows, entry and patio doors, dry rot repair and waterproofing — installed by Certified
+          Master Installers for homes in Salem and communities within {SITE.serviceRadiusMiles} miles.
+        </p>
+        <div class="btn-row">
+          <a class="btn btn--primary btn--lg" href={ESTIMATE_HREF}>Get a free estimate</a>
+          <a class="btn btn--outline btn--lg" href={SITE.phoneHref}><UiIcon name="phone" />Call {SITE.phoneDisplay}</a>
+        </div>
+        <ul class="hero__trust">
+          <li><UiIcon name="shield" size={20} />Certified Master Installers</li>
+          <li><UiIcon name="clipboard" size={20} />Free, no-pressure estimates</li>
+          <li><UiIcon name="pin" size={20} />Salem + {SITE.serviceRadiusMiles}-mile service area</li>
+        </ul>
+      </div>
+      <div class="hero__media">
+        <Photo
+          name="hero"
+          alt="Bright living room with new windows letting in natural daylight"
+          need="Hero photo — a bright, natural-daylight photo of a finished window or door project (ideally your own work)."
+          ratio="5 / 4"
+          icon="picture"
+          eager
+          sizes="(min-width: 900px) 46vw, 100vw"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="windows-heading">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <p class="eyebrow">Windows</p>
+        <h2 id="windows-heading">Find the right window style for every room</h2>
+        <p class="lead">From classic double-hung to bay, bow and custom shapes — explore styles and see what fits your home.</p>
+      </div>
+      <StyleGrid items={windows} base="/windows/" showBlurb={false} />
+      <p class="center-link"><a class="btn btn--outline" href="/windows/">Explore all windows</a></p>
+    </div>
+  </section>
+
+  <section class="section section--gray" aria-labelledby="doors-heading">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <p class="eyebrow">Doors</p>
+        <h2 id="doors-heading">Entry and patio doors that make an entrance</h2>
+        <p class="lead">Front doors, sliding and French patio doors, multi-slide, bifold and storm doors.</p>
+      </div>
+      <StyleGrid items={doors} base="/doors/" showBlurb={false} />
+      <p class="center-link"><a class="btn btn--outline" href="/doors/">Explore all doors</a></p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="services-heading">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Services</p>
+        <h2 id="services-heading">More than installation — protection for your home</h2>
+        <p class="lead">
+          In the rainy Willamette Valley, what is behind your trim matters as much as the window itself. We repair
+          dry rot, correct water-management problems, and finish every opening with clean, durable trim.
+        </p>
+      </div>
+      <ServiceCards />
+    </div>
+  </section>
+
+  <CertifiedSection />
+
+  <section class="section" aria-labelledby="process-heading">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <p class="eyebrow">How it works</p>
+        <h2 id="process-heading">A simple, straightforward process</h2>
+      </div>
+      <ProcessSteps />
+    </div>
+  </section>
+
+  <section class="section section--gray" aria-labelledby="brands-heading">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <p class="eyebrow">Brands we install</p>
+        <h2 id="brands-heading">Quality products from trusted manufacturers</h2>
+        <p class="lead">We install windows and doors from leading manufacturers, so we can recommend the right product for your home and budget.</p>
+      </div>
+      <BrandGrid />
+      <p class="center-link"><a href="/brands/">Learn more about the brands we install →</a></p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="energy-heading">
+    <div class="container split">
+      <div>
+        <p class="eyebrow">Energy savings</p>
+        <h2 id="energy-heading">What about energy tax credits?</h2>
+        <p class="lead">
+          The federal tax credit for energy-efficient windows and doors ended for products installed after
+          December 31, 2025. Efficient windows and doors can still improve comfort and lower energy use.
+        </p>
+        <p>
+          If you installed qualifying windows or doors in 2025, you may still be able to claim the credit on your
+          2025 tax return. Our guide explains what changed and what to look for today.
+        </p>
+        <a class="btn btn--outline" href="/energy-tax-credits/">Read the energy &amp; tax credit guide</a>
+      </div>
+      <Photo
+        name="energy"
+        alt="Sunlight coming through an energy-efficient window"
+        need="A daylight photo of an energy-efficient window (close-up of frame and glass works well)."
+        icon="double-hung"
+      />
+    </div>
+  </section>
+
+  <section class="section section--navy" aria-labelledby="locations-heading">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Locations</p>
+        <h2 id="locations-heading">Local branches, one standard of installation</h2>
+        <p class="lead">
+          Fomin Windows &amp; Doors is starting in Salem and growing into a multi-branch company across Oregon and
+          California.
+        </p>
+      </div>
+      <ul class="grid grid-4 loc-cards">
+        {
+          locations.map((l) => (
+            <li>
+              <a class="loc-card" href={`/locations/${l.slug}/`}>
+                <span class:list={['pill', { 'pill--soon': l.status !== 'active' }]}>
+                  {l.status === 'active' ? 'Now serving' : 'Coming soon'}
+                </span>
+                <span class="loc-card__city">{l.city}, {l.state}</span>
+                <span class="loc-card__more">View branch →</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <h3 class="areas-title">Serving Salem and communities within {SITE.serviceRadiusMiles} miles, including:</h3>
+      <ul class="area-chips">
+        {featuredAreas.map((a) => <li>{a.name}</li>)}
+      </ul>
+      <p><a class="areas-link" href="/locations/salem-or/#service-area">See all {salem.areas.length} communities we serve →</a></p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="reviews-heading">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <p class="eyebrow">Customer reviews</p>
+        <h2 id="reviews-heading">What our customers say</h2>
+      </div>
+      <MissingNote>
+        Real customer reviews. No reviews are shown yet — add genuine reviews (for example from your Google Business
+        Profile) with the customer's permission. Do not use made-up or paraphrased testimonials.
+      </MissingNote>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .hero {
+    background: linear-gradient(180deg, var(--gray) 0%, var(--white) 100%);
+    padding-block: clamp(40px, 7vw, 96px);
+  }
+  .hero__inner {
+    display: grid;
+    gap: 40px;
+    align-items: center;
+  }
+  @media (min-width: 900px) {
+    .hero__inner {
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 56px;
+    }
+  }
+  .hero h1 {
+    max-width: 15ch;
+  }
+  .hero .lead {
+    margin-bottom: 28px;
+  }
+  .hero__trust {
+    list-style: none;
+    padding: 0;
+    margin: 28px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+    font-weight: 600;
+    color: var(--navy);
+    font-size: 0.9375rem;
+  }
+  .hero__trust li {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .hero__trust :global(svg) {
+    color: var(--blue);
+  }
+  .center-link {
+    text-align: center;
+    margin: 32px 0 0;
+  }
+  .loc-cards {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 48px;
+  }
+  .loc-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    height: 100%;
+    padding: 24px;
+    border-radius: var(--radius-lg);
+    background: rgb(255 255 255 / 6%);
+    border: 1px solid rgb(255 255 255 / 16%);
+    color: var(--white);
+    text-decoration: none;
+  }
+  .loc-card:hover {
+    background: rgb(255 255 255 / 12%);
+    color: var(--white);
+  }
+  .loc-card__city {
+    font-size: 1.375rem;
+    font-weight: 750;
+  }
+  .loc-card__more {
+    color: #9fc0ff;
+    font-weight: 600;
+    font-size: 0.9375rem;
+  }
+  .areas-title {
+    font-size: 1.125rem;
+  }
+  .area-chips {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .area-chips li {
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: rgb(255 255 255 / 8%);
+    border: 1px solid rgb(255 255 255 / 14%);
+    color: #e6edf4;
+    font-size: 0.9375rem;
+  }
+  .areas-link {
+    color: #9fc0ff;
+    font-weight: 650;
+  }
+  .areas-link:hover {
+    color: var(--white);
+  }
+</style>

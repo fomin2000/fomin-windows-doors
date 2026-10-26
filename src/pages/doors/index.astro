@@ -1,0 +1,76 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import StyleGrid from '../../components/StyleGrid.astro';
+import Photo from '../../components/Photo.astro';
+import BrandGrid from '../../components/BrandGrid.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { doors, materials } from '../../data/products';
+---
+<Base
+  title="Entry & Patio Doors in Salem, OR"
+  description="Explore entry doors, sliding and French patio doors, multi-slide, bifold and storm doors — installed by certified master installers in Salem, OR and within 40 miles."
+>
+  <PageHero
+    title="Entry & patio doors"
+    eyebrow="Doors"
+    lead="Front doors and patio doors, professionally installed. Choose a style below to learn how it works, where it fits best and what to consider."
+    crumbs={[{ label: 'Doors' }]}
+  >
+    <Photo
+      slot="media"
+      name="doors-hero"
+      alt="Front entry door on a home in natural daylight"
+      need="A daylight photo of an entry or patio door you have installed."
+      icon="entry-door"
+      eager
+    />
+  </PageHero>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>Door styles</h2>
+        <p class="lead">Not sure which door style you need? Compare them to the icons below, or call us and we will help.</p>
+      </div>
+      <StyleGrid items={doors} base="/doors/" />
+    </div>
+  </section>
+
+  <section class="section section--gray">
+    <div class="container">
+      <div class="section-head">
+        <h2>Door materials</h2>
+        <p class="lead">Each material has strengths. We will help you weigh appearance, maintenance and budget.</p>
+      </div>
+      <ul class="grid grid-4 plain">
+        {materials.map((m) => <li class="card"><h3>{m.name}</h3><p>{m.text}</p></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split">
+      <div>
+        <p class="eyebrow">Installation matters</p>
+        <h2>A door is only as good as its installation</h2>
+        <p class="lead">Our Certified Master Installers measure precisely, inspect for dry rot, and install sill pans and flashing so water stays out of your floors and walls.</p>
+        <div class="btn-row">
+          <a class="btn btn--outline" href="/services/door-replacement/">Our door installation process</a>
+          <a class="btn btn--outline" href="/services/dry-rot-repair/">Dry rot repair</a>
+        </div>
+      </div>
+      <div>
+        <h3>Brands we install</h3>
+        <BrandGrid />
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .plain { list-style: none; padding: 0; margin: 0; }
+  .plain p { color: var(--gray-600); }
+</style>
