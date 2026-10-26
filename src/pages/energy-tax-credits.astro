@@ -1,0 +1,159 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+
+// Update this date whenever you re-check the information on this page.
+const lastReviewed = 'October 2026';
+
+const nfrc = [
+  { term: 'U-Factor', text: 'How well the window keeps heat in. Lower is better — important for Oregon winters.' },
+  { term: 'Solar Heat Gain Coefficient (SHGC)', text: 'How much heat from sunlight comes through. Lower helps keep rooms cooler in summer — especially important in California.' },
+  { term: 'Visible Transmittance (VT)', text: 'How much daylight comes through. Higher means a brighter room.' },
+  { term: 'Air Leakage (AL)', text: 'How much air passes through the unit. Lower is better.' },
+];
+
+const faqs = [
+  {
+    q: 'Can I still get the federal tax credit for new windows or doors?',
+    a: 'Not for windows or doors installed in 2026 or later. The federal Energy Efficient Home Improvement Credit (Section 25C) ended for property placed in service after December 31, 2025.',
+  },
+  {
+    q: 'I replaced windows or doors in 2025. Can I still claim it?',
+    a: 'Possibly. Qualifying property placed in service in 2025 can generally be claimed on your 2025 federal tax return using IRS Form 5695. Talk with a tax professional about your situation, including whether an amended return makes sense.',
+  },
+  {
+    q: 'Are there Oregon incentives for windows?',
+    a: 'Energy Trust of Oregon announced that its home retrofit window incentives were discontinued for 2026. Programs change, so check Energy Trust and your utility for current offers before you plan around one.',
+  },
+  {
+    q: 'Do energy-efficient windows still make sense without a credit?',
+    a: 'They can. Efficient windows and doors can make rooms more comfortable, reduce drafts and condensation, cut outside noise, and lower heating and cooling use. Actual savings depend on your home, your current windows and your energy costs.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+---
+<Base
+  title="Energy Savings & Tax Credits for Windows and Doors"
+  description="What happened to the federal energy tax credit for windows and doors, what 2025 installs may still claim, Oregon and California incentives, and how to read window energy labels."
+  schema={faqSchema}
+>
+  <PageHero
+    title="Energy savings & tax credits"
+    eyebrow="Homeowner guide"
+    lead="A plain-English guide to energy tax credits for windows and doors — what changed, what you may still be able to claim, and how to choose efficient products."
+    crumbs={[{ label: 'Energy Savings & Tax Credits' }]}
+  />
+
+  <section class="section">
+    <div class="container prose-wrap">
+      <div class="summary card">
+        <h2 class="h3">The short version</h2>
+        <ul class="check-list">
+          <li>The federal tax credit for energy-efficient windows and doors <strong>ended for products installed after December 31, 2025</strong>.</li>
+          <li>If you installed qualifying windows or doors <strong>in 2025</strong>, you may still be able to claim the credit on your 2025 tax return.</li>
+          <li>Energy Trust of Oregon discontinued its home retrofit window incentives for 2026.</li>
+          <li>Efficient windows and doors can still improve comfort and reduce energy use — look for ENERGY STAR and NFRC labels.</li>
+        </ul>
+        <p class="reviewed">Last reviewed: {lastReviewed}. This page is general information, not tax advice. Please confirm details with a tax professional and the official sources below.</p>
+      </div>
+
+      <div class="prose">
+        <h2>The federal Energy Efficient Home Improvement Credit (25C)</h2>
+        <p>
+          From 2023 through 2025, homeowners could claim a federal tax credit for qualifying energy-efficient
+          improvements to their existing primary home. For windows and doors, the credit was generally 30% of the
+          product cost (installation labor did not count), with annual limits of:
+        </p>
+        <ul>
+          <li><strong>$600</strong> total for qualifying windows and skylights</li>
+          <li><strong>$250</strong> per qualifying exterior door, up to <strong>$500</strong> total for doors</li>
+        </ul>
+        <p>
+          Windows generally had to meet ENERGY STAR Most Efficient criteria and doors had to meet ENERGY STAR
+          requirements. For property placed in service in 2025, the IRS also required a product identification
+          number from a qualified manufacturer.
+        </p>
+        <h3>What changed</h3>
+        <p>
+          Federal legislation signed in July 2025 (commonly called the One Big Beautiful Bill Act) ended the 25C credit
+          for property placed in service after <strong>December 31, 2025</strong>. Windows and doors installed in 2026 or
+          later do not qualify for this federal credit.
+        </p>
+        <h3>If your windows or doors were installed in 2025</h3>
+        <p>
+          Qualifying products installed in 2025 can generally be claimed on your 2025 federal return using{' '}
+          <strong>IRS Form 5695</strong>. Keep your invoice, the manufacturer's certification statement, and the product
+          identification number. If you already filed without claiming it, ask a tax professional whether an amended
+          return makes sense.
+        </p>
+
+        <h2>Oregon incentives</h2>
+        <p>
+          Energy Trust of Oregon previously offered incentives for replacing older windows in homes, but announced that
+          its home retrofit window incentives were discontinued for 2026. Incentive programs change from year to year,
+          so check <a href="https://www.energytrust.org/" rel="noopener">Energy Trust of Oregon</a> and your electric or
+          gas utility for current offers.
+        </p>
+
+        <h2>California (for our planned Sacramento and Roseville branches)</h2>
+        <p>
+          California has its own energy code (Title 24) that sets efficiency requirements for replacement windows and
+          doors. Local utilities sometimes offer rebates — Sacramento-area homeowners can check with SMUD, and Roseville
+          residents with Roseville Electric Utility.
+        </p>
+
+        <h2>How to compare window energy performance</h2>
+        <p>
+          Most windows carry a label from the National Fenestration Rating Council (NFRC). These four numbers help you
+          compare products:
+        </p>
+      </div>
+
+      <dl class="nfrc">
+        {nfrc.map((n) => <div class="card"><dt>{n.term}</dt><dd>{n.text}</dd></div>)}
+      </dl>
+
+      <div class="prose">
+        <p>
+          The <strong>ENERGY STAR</strong> label means a product meets efficiency criteria for your climate zone.
+          Remember that installation quality matters too: even an efficient window loses performance if it is not
+          properly sealed and insulated.
+        </p>
+
+        <h2>Frequently asked questions</h2>
+      </div>
+      <div class="faq">
+        {faqs.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+      </div>
+
+      <div class="prose sources">
+        <h2 class="h3">Official sources</h2>
+        <ul>
+          <li><a href="https://www.irs.gov/credits-deductions/energy-efficient-home-improvement-credit" rel="noopener">IRS — Energy Efficient Home Improvement Credit</a></li>
+          <li><a href="https://www.irs.gov/forms-pubs/about-form-5695" rel="noopener">IRS — About Form 5695, Residential Energy Credits</a></li>
+          <li><a href="https://www.energystar.gov/products/residential_windows_doors_and_skylights" rel="noopener">ENERGY STAR — Residential windows, doors and skylights</a></li>
+          <li><a href="https://www.energytrust.org/" rel="noopener">Energy Trust of Oregon</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand title="Want help choosing efficient windows and doors?" text="We can explain the energy ratings of the products we install and help you choose what fits your home. Call or email for a free estimate." />
+</Base>
+
+<style>
+  .prose-wrap { max-width: 880px; }
+  .h3 { font-size: 1.375rem; }
+  .summary { background: var(--blue-50); border-color: #cfe0fd; margin-bottom: 48px; }
+  .reviewed { font-size: 0.875rem; color: var(--gray-600); margin: 8px 0 0; }
+  .nfrc { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); margin: 0 0 24px; }
+  .nfrc dt { font-weight: 750; color: var(--navy); margin-bottom: 6px; }
+  .nfrc dd { margin: 0; color: var(--gray-600); }
+  .faq { margin-bottom: 48px; }
+</style>

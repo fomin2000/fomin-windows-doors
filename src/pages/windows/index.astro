@@ -1,0 +1,76 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import StyleGrid from '../../components/StyleGrid.astro';
+import Photo from '../../components/Photo.astro';
+import BrandGrid from '../../components/BrandGrid.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { windows, materials } from '../../data/products';
+---
+<Base
+  title="Replacement Windows in Salem, OR"
+  description="Explore replacement window styles — double-hung, casement, sliding, picture, bay, bow and more — installed by certified master installers in Salem, OR and within 40 miles."
+>
+  <PageHero
+    title="Replacement windows"
+    eyebrow="Windows"
+    lead="Every style, professionally installed. Choose a style below to learn how it works, where it fits best and what to consider."
+    crumbs={[{ label: 'Windows' }]}
+  >
+    <Photo
+      slot="media"
+      name="windows-hero"
+      alt="Living room with new replacement windows in natural daylight"
+      need="A daylight interior photo featuring newly installed windows."
+      icon="double-hung"
+      eager
+    />
+  </PageHero>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>Window styles</h2>
+        <p class="lead">Not sure what your current windows are called? Match them to the icons below, or call us and we will help.</p>
+      </div>
+      <StyleGrid items={windows} base="/windows/" />
+    </div>
+  </section>
+
+  <section class="section section--gray">
+    <div class="container">
+      <div class="section-head">
+        <h2>Window materials</h2>
+        <p class="lead">Each material has strengths. We will help you weigh appearance, maintenance and budget.</p>
+      </div>
+      <ul class="grid grid-4 plain">
+        {materials.map((m) => <li class="card"><h3>{m.name}</h3><p>{m.text}</p></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split">
+      <div>
+        <p class="eyebrow">Installation matters</p>
+        <h2>The window is only as good as the installation</h2>
+        <p class="lead">Our Certified Master Installers measure precisely, inspect for dry rot, and flash and seal every opening to keep Oregon rain out.</p>
+        <div class="btn-row">
+          <a class="btn btn--outline" href="/services/window-replacement/">Our window installation process</a>
+          <a class="btn btn--outline" href="/services/window-door-trim/">Window trim</a>
+        </div>
+      </div>
+      <div>
+        <h3>Brands we install</h3>
+        <BrandGrid />
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .plain { list-style: none; padding: 0; margin: 0; }
+  .plain p { color: var(--gray-600); }
+</style>

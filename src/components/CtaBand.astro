@@ -1,0 +1,52 @@
+---
+import UiIcon from './UiIcon.astro';
+import { SITE, ESTIMATE_HREF } from '../data/site';
+interface Props {
+  title?: string;
+  text?: string;
+}
+const {
+  title = 'Ready to talk about your windows and doors?',
+  text = 'Get a free, no-pressure estimate from a certified master installer. Call us or send an email with a few details about your project.',
+} = Astro.props;
+---
+<section class="cta-band">
+  <div class="container cta-band__inner">
+    <div>
+      <h2>{title}</h2>
+      <p>{text}</p>
+    </div>
+    <div class="btn-row">
+      <a class="btn btn--primary btn--lg" href={ESTIMATE_HREF}>Get a free estimate</a>
+      <a class="btn btn--ghost-light btn--lg" href={SITE.phoneHref}><UiIcon name="phone" />{SITE.phoneDisplay}</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-band {
+    background: var(--navy);
+    color: #d3dfeb;
+    padding-block: clamp(48px, 7vw, 80px);
+  }
+  .cta-band__inner {
+    display: grid;
+    gap: 28px;
+    align-items: center;
+  }
+  @media (min-width: 900px) {
+    .cta-band__inner {
+      grid-template-columns: 1fr auto;
+      gap: 48px;
+    }
+  }
+  .cta-band h2 {
+    color: var(--white);
+    margin-bottom: 0.4em;
+  }
+  .cta-band p {
+    margin: 0;
+    max-width: 60ch;
+    font-size: 1.125rem;
+  }
+</style>

@@ -1,0 +1,37 @@
+---
+import UiIcon from './UiIcon.astro';
+import { SITE, ESTIMATE_HREF } from '../data/site';
+---
+<div class="action-bar" role="region" aria-label="Quick contact">
+  <a class="btn btn--outline" href={SITE.phoneHref}><UiIcon name="phone" />Call</a>
+  <a class="btn btn--primary" href={ESTIMATE_HREF}><UiIcon name="clipboard" />Free Estimate</a>
+</div>
+
+<style>
+  .action-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 90;
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 10px;
+    padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+    background: rgb(255 255 255 / 97%);
+    border-top: 1px solid var(--gray-200);
+    box-shadow: 0 -6px 20px rgb(13 34 54 / 8%);
+  }
+  .action-bar .btn {
+    min-height: 48px;
+    width: 100%;
+  }
+  .action-bar .btn--outline {
+    background: var(--white);
+  }
+  @media (min-width: 900px) {
+    .action-bar {
+      display: none;
+    }
+  }
+</style>

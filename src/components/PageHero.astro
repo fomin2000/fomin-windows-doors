@@ -1,0 +1,97 @@
+---
+import UiIcon from './UiIcon.astro';
+import { SITE, ESTIMATE_HREF } from '../data/site';
+
+interface Props {
+  title: string;
+  eyebrow?: string;
+  lead?: string;
+  crumbs?: { label: string; href?: string }[];
+  ctas?: boolean;
+}
+const { title, eyebrow, lead, crumbs = [], ctas = true } = Astro.props;
+const hasMedia = Astro.slots.has('media');
+---
+<section class:list={['page-hero', { 'page-hero--media': hasMedia }]}>
+  <div class="container page-hero__inner">
+    <div class="page-hero__text">
+      {
+        crumbs.length > 0 && (
+          <nav aria-label="Breadcrumb" class="crumbs">
+            <ol>
+              <li><a href="/">Home</a></li>
+              {crumbs.map((c) => (
+                <li>{c.href ? <a href={c.href}>{c.label}</a> : <span aria-current="page">{c.label}</span>}</li>
+              ))}
+            </ol>
+          </nav>
+        )
+      }
+      {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+      <h1>{title}</h1>
+      {lead && <p class="lead">{lead}</p>}
+      <slot />
+      {
+        ctas && (
+          <div class="btn-row page-hero__ctas">
+            <a class="btn btn--primary btn--lg" href={ESTIMATE_HREF}>Get a free estimate</a>
+            <a class="btn btn--outline btn--lg" href={SITE.phoneHref}>
+              <UiIcon name="phone" />
+              {SITE.phoneDisplay}
+            </a>
+          </div>
+        )
+      }
+    </div>
+    {hasMedia && <div class="page-hero__media"><slot name="media" /></div>}
+  </div>
+</section>
+
+<style>
+  .page-hero {
+    background: linear-gradient(180deg, var(--gray) 0%, var(--white) 100%);
+    padding-block: clamp(36px, 6vw, 72px);
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .page-hero__inner {
+    display: grid;
+    gap: 40px;
+    align-items: center;
+  }
+  @media (min-width: 900px) {
+    .page-hero--media .page-hero__inner {
+      grid-template-columns: 1.1fr 0.9fr;
+    }
+  }
+  .page-hero h1 {
+    max-width: 18ch;
+  }
+  .page-hero__ctas {
+    margin-top: 28px;
+  }
+  .crumbs ol {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 0;
+    margin: 0 0 20px;
+    font-size: 0.875rem;
+    color: var(--gray-600);
+  }
+  .crumbs li:not(:last-child)::after {
+    content: '/';
+    margin-left: 6px;
+    color: var(--gray-400);
+  }
+  .crumbs a {
+    color: var(--gray-600);
+  }
+  .crumbs a:hover {
+    color: var(--blue);
+  }
+  .page-hero__media {
+    display: grid;
+    place-items: center;
+  }
+</style>

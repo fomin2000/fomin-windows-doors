@@ -1,0 +1,82 @@
+---
+import Icon from './Icon.astro';
+import type { Product } from '../data/products';
+interface Props {
+  items: Product[];
+  base: '/windows/' | '/doors/';
+  showBlurb?: boolean;
+}
+const { items, base, showBlurb = true } = Astro.props;
+---
+<ul class="styles">
+  {
+    items.map((p) => (
+      <li>
+        <a class="style" href={`${base}${p.slug}/`}>
+          <span class="style__icon">
+            <Icon name={p.icon} size={64} />
+          </span>
+          <span class="style__name">{p.name}</span>
+          {showBlurb && <span class="style__blurb">{p.blurb}</span>}
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .styles {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 170px), 1fr));
+  }
+  @media (max-width: 480px) {
+    .styles {
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+  }
+  .style {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+    height: 100%;
+    padding: 22px 14px;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    color: var(--navy);
+    text-decoration: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .style:hover {
+    border-color: var(--blue);
+    box-shadow: var(--shadow);
+    color: var(--blue);
+  }
+  .style__icon {
+    display: grid;
+    place-items: center;
+    width: 96px;
+    height: 96px;
+    border-radius: 16px;
+    background: var(--gray);
+  }
+  .style:hover .style__icon {
+    background: var(--blue-50);
+  }
+  .style__name {
+    font-weight: 700;
+    line-height: 1.3;
+  }
+  .style__blurb {
+    font-size: 0.875rem;
+    color: var(--gray-600);
+    line-height: 1.4;
+  }
+</style>

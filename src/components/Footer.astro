@@ -1,0 +1,170 @@
+---
+import Logo from './Logo.astro';
+import UiIcon from './UiIcon.astro';
+import MissingNote from './MissingNote.astro';
+import { SITE, ESTIMATE_HREF } from '../data/site';
+import { windows, doors } from '../data/products';
+import { services } from '../data/services';
+import { locations } from '../data/locations';
+
+const year = new Date().getFullYear();
+---
+<footer class="footer">
+  <div class="container">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <a href="/" aria-label={`${SITE.name} — home`}><Logo variant="light" /></a>
+        <p>
+          Window and door replacement, dry rot repair, waterproofing and trim — installed by certified master
+          installers. Serving Salem, OR and communities within {SITE.serviceRadiusMiles} miles.
+        </p>
+        <ul class="footer__contact">
+          <li><a href={SITE.phoneHref}><UiIcon name="phone" size={18} />{SITE.phoneDisplay}</a></li>
+          <li><a href={SITE.emailHref}><UiIcon name="mail" size={18} />{SITE.email}</a></li>
+          {SITE.businessHours && <li><UiIcon name="clock" size={18} />{SITE.businessHours}</li>}
+          {SITE.streetAddress && <li><UiIcon name="pin" size={18} />{SITE.streetAddress}</li>}
+        </ul>
+        <a class="btn btn--primary" href={ESTIMATE_HREF}>Get a free estimate</a>
+      </div>
+
+      <nav class="footer__cols" aria-label="Footer">
+        <div>
+          <h2>Windows</h2>
+          <ul>
+            {windows.map((w) => <li><a href={`/windows/${w.slug}/`}>{w.name}</a></li>)}
+          </ul>
+        </div>
+        <div>
+          <h2>Doors</h2>
+          <ul>
+            {doors.map((d) => <li><a href={`/doors/${d.slug}/`}>{d.name}</a></li>)}
+          </ul>
+          <h2 class="footer__h2-gap">Services</h2>
+          <ul>
+            {services.map((s) => <li><a href={`/services/${s.slug}/`}>{s.name}</a></li>)}
+            <li><a href="/energy-tax-credits/">Energy Savings &amp; Tax Credits</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Company</h2>
+          <ul>
+            <li><a href="/about/">About</a></li>
+            <li><a href="/about/#certified">Certified Master Installers</a></li>
+            <li><a href="/brands/">Brands We Install</a></li>
+            <li><a href="/gallery/">Gallery</a></li>
+            <li><a href="/contact/">Contact</a></li>
+          </ul>
+          <h2 class="footer__h2-gap">Locations</h2>
+          <ul>
+            {
+              locations.map((l) => (
+                <li>
+                  <a href={`/locations/${l.slug}/`}>
+                    {l.city}, {l.state}
+                    {l.status !== 'active' && <span class="footer__soon"> (coming soon)</span>}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <div class="footer__bottom">
+      <p>
+        © {year} {SITE.name}. All rights reserved.
+        {SITE.ccbLicense ? <> · Oregon CCB #{SITE.ccbLicense}</> : null}
+      </p>
+      {!SITE.ccbLicense && <MissingNote inline>Oregon CCB license number (required in Oregon advertising).</MissingNote>}
+      <p class="footer__legal">
+        Brand names and trademarks belong to their respective owners and are used only to identify the products we
+        install. Fomin Windows &amp; Doors is an independent company and is not affiliated with Renewal by Andersen.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--navy);
+    color: #c4d2e0;
+    padding-block: 64px 32px;
+    font-size: 0.9375rem;
+  }
+  .footer a {
+    color: #e6edf4;
+    text-decoration: none;
+  }
+  .footer a:hover {
+    color: var(--white);
+    text-decoration: underline;
+  }
+  .footer__top {
+    display: grid;
+    gap: 48px;
+  }
+  @media (min-width: 1000px) {
+    .footer__top {
+      grid-template-columns: 340px 1fr;
+      gap: 64px;
+    }
+  }
+  .footer__brand p {
+    margin-block: 20px;
+  }
+  .footer__contact {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px;
+    display: grid;
+    gap: 10px;
+  }
+  .footer__contact li,
+  .footer__contact a {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .footer__cols {
+    display: grid;
+    gap: 32px;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  }
+  .footer h2 {
+    color: var(--white);
+    font-size: 0.8125rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .footer__h2-gap {
+    margin-top: 28px;
+  }
+  .footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .footer__cols li {
+    margin-bottom: 8px;
+  }
+  .footer__soon {
+    color: #93a7bb;
+    font-size: 0.8125rem;
+  }
+  .footer__bottom {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid rgb(255 255 255 / 14%);
+    font-size: 0.8125rem;
+    color: #93a7bb;
+  }
+  .footer__bottom p {
+    margin-bottom: 8px;
+  }
+  .footer__legal {
+    max-width: 90ch;
+    margin-top: 10px;
+  }
+</style>

@@ -1,0 +1,161 @@
+---
+// Certified Master Installer section with a certificate-style card.
+// Fill in CERT below once you have the certificate details. Upload a scan or
+// photo of the real certificate as src/assets/photos/certificate.jpg to show it.
+import Icon from './Icon.astro';
+import Photo from './Photo.astro';
+import MissingNote from './MissingNote.astro';
+import { SITE } from '../data/site';
+import type { ImageMetadata } from 'astro';
+
+const CERT = {
+  issuer: null as string | null, // e.g. the organization or manufacturer that issued the certification
+  holder: null as string | null, // installer name(s)
+  number: null as string | null,
+  year: null as string | null,
+};
+
+const certPhoto = Object.keys(
+  import.meta.glob<{ default: ImageMetadata }>('../assets/photos/certificate.{jpg,jpeg,png,webp}'),
+).length > 0;
+const missing = [
+  !CERT.issuer && 'issuing organization',
+  !CERT.holder && 'certified installer name(s)',
+  !CERT.number && 'certificate / ID number',
+  !CERT.year && 'year certified',
+].filter(Boolean);
+---
+<section class="section section--gray" id="certified">
+  <div class="container split">
+    <div>
+      <p class="eyebrow">Installation you can trust</p>
+      <h2>Certified Master Installers</h2>
+      <p class="lead">
+        Even the best window or door only performs as well as it is installed. Our installers are Certified Master
+        Installers, trained to install, flash and seal windows and doors the right way.
+      </p>
+      <ul class="check-list">
+        <li>Openings measured individually before ordering</li>
+        <li>Sill pans and flashing installed in the correct, water-shedding order</li>
+        <li>Rough openings inspected for dry rot during every replacement</li>
+        <li>Insulation and sealing to reduce drafts and air leaks</li>
+        <li>Windows and doors adjusted to operate smoothly before we leave</li>
+      </ul>
+      {
+        missing.length > 0 && (
+          <MissingNote>
+            Certification details — {missing.join(', ')}. Add them in <code>src/components/CertifiedSection.astro</code>
+            and upload a photo of the certificate as <code>src/assets/photos/certificate.jpg</code>.
+          </MissingNote>
+        )
+      }
+    </div>
+
+    <div>
+      {
+        certPhoto ? (
+          <Photo name="certificate" alt={`${SITE.name} Certified Master Installer certificate`} ratio="4 / 3" />
+        ) : (
+          <figure class="cert" aria-label="Certified Master Installer credential">
+            <div class="cert__border">
+              <div class="cert__seal"><Icon name="certified" size={72} /></div>
+              <p class="cert__kicker">Credential</p>
+              <p class="cert__title">Certified Master Installer</p>
+              <p class="cert__company">{SITE.name}</p>
+              <dl class="cert__fields">
+                <div>
+                  <dt>Issued by</dt>
+                  <dd>{CERT.issuer ?? '—'}</dd>
+                </div>
+                <div>
+                  <dt>Installer</dt>
+                  <dd>{CERT.holder ?? '—'}</dd>
+                </div>
+                <div>
+                  <dt>Certificate no.</dt>
+                  <dd>{CERT.number ?? '—'}</dd>
+                </div>
+                <div>
+                  <dt>Year</dt>
+                  <dd>{CERT.year ?? '—'}</dd>
+                </div>
+              </dl>
+            </div>
+          </figure>
+        )
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .cert {
+    margin: 0;
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    padding: 14px;
+  }
+  .cert__border {
+    border: 2px solid var(--navy);
+    outline: 1px solid var(--navy);
+    outline-offset: -8px;
+    border-radius: 10px;
+    padding: 36px 28px 28px;
+    text-align: center;
+    background:
+      radial-gradient(circle at 50% 0%, var(--blue-50), transparent 60%),
+      var(--white);
+  }
+  .cert__seal {
+    display: inline-grid;
+    place-items: center;
+    width: 104px;
+    height: 104px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: var(--white);
+    margin-bottom: 16px;
+    --icon-glass: var(--navy-700);
+  }
+  .cert__kicker {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gray-600);
+    margin-bottom: 4px;
+  }
+  .cert__title {
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-weight: 800;
+    color: var(--navy);
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+  }
+  .cert__company {
+    color: var(--blue);
+    font-weight: 650;
+    margin-bottom: 24px;
+  }
+  .cert__fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 20px;
+    margin: 0;
+    text-align: left;
+    border-top: 1px solid var(--gray-200);
+    padding-top: 20px;
+  }
+  .cert__fields dt {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--gray-600);
+  }
+  .cert__fields dd {
+    margin: 0;
+    font-weight: 650;
+    color: var(--navy);
+  }
+</style>

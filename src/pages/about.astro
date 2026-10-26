@@ -1,0 +1,114 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Photo from '../components/Photo.astro';
+import CertifiedSection from '../components/CertifiedSection.astro';
+import ProcessSteps from '../components/ProcessSteps.astro';
+import BrandGrid from '../components/BrandGrid.astro';
+import CtaBand from '../components/CtaBand.astro';
+import MissingNote from '../components/MissingNote.astro';
+import { SITE } from '../data/site';
+
+const values = [
+  { title: 'Installation first', text: 'We focus on the details that keep water and air out: measuring, flashing, sealing and trim.' },
+  { title: 'Honest recommendations', text: 'We install several brands, so we can recommend what fits your home and budget — not just one product line.' },
+  { title: 'Fix what’s hidden', text: 'We look for dry rot and water damage during every replacement instead of covering it up.' },
+  { title: 'Respect for your home', text: 'Clear communication, careful work, and a clean job site when we leave.' },
+];
+---
+<Base
+  title="About Us"
+  description="About Fomin Windows & Doors: certified master installers of windows and doors serving Salem, OR and communities within 40 miles, with branches planned in Portland, Sacramento and Roseville."
+>
+  <PageHero
+    title="About Fomin Windows & Doors"
+    eyebrow="About us"
+    lead="A Salem, Oregon window and door company built around one idea: a great window or door deserves a great installation."
+    crumbs={[{ label: 'About' }]}
+  >
+    <Photo
+      slot="media"
+      name="about-team"
+      alt="The Fomin Windows & Doors team"
+      need="A friendly daylight photo of the owner and/or crew (on a job site or with the work vehicle)."
+      icon="entry-door"
+      eager
+    />
+  </PageHero>
+
+  <section class="section">
+    <div class="container split split--top">
+      <div class="prose">
+        <h2>Our story</h2>
+        <p class="lead">
+          Fomin Windows &amp; Doors replaces and installs windows and doors, repairs dry rot, corrects water-management
+          problems, and installs window and door trim for homeowners in Salem and communities within
+          {' '}{SITE.serviceRadiusMiles} miles.
+        </p>
+        <p>
+          We are launching in Salem first, with plans to grow into a multi-branch company — starting with a Portland,
+          Oregon branch and, in the future, branches in Sacramento and Roseville, California.
+        </p>
+        <MissingNote>
+          Your company story — who founded the company, when{SITE.yearFounded ? '' : ' (year founded)'}, your
+          background and experience, and why you started the business. Use only true details.
+        </MissingNote>
+      </div>
+      <div>
+        <h2 class="h3">What we stand for</h2>
+        <div class="values">
+          {values.map((v) => <div class="card"><h3>{v.title}</h3><p>{v.text}</p></div>)}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CertifiedSection />
+
+  <section class="section" id="process">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Our process</p>
+        <h2>From first call to final walk-through</h2>
+      </div>
+      <ProcessSteps />
+    </div>
+  </section>
+
+  <section class="section section--gray">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Licensing &amp; insurance</p>
+        <h2>Licensed in Oregon</h2>
+        {SITE.ccbLicense ? (
+          <p class="lead">Oregon Construction Contractors Board license #{SITE.ccbLicense}.</p>
+        ) : (
+          <MissingNote>
+            Oregon CCB license number. Oregon law requires the CCB number in all advertising, including your website.
+            Add it as <code>ccbLicense</code> in <code>src/data/site.ts</code>. Also confirm what bonding/insurance
+            statements you want to show.
+          </MissingNote>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>Brands we install</h2>
+      </div>
+      <BrandGrid />
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .split--top { align-items: start; }
+  .h3 { font-size: 1.5rem; }
+  .values { display: grid; gap: 16px; }
+  .values .card { padding: 22px; }
+  .values p { color: var(--gray-600); }
+</style>

@@ -1,0 +1,50 @@
+---
+import Icon from './Icon.astro';
+import { services } from '../data/services';
+interface Props {
+  exclude?: string;
+  only?: string[];
+}
+const { exclude, only } = Astro.props;
+const list = services.filter((s) => s.slug !== exclude && (!only || only.includes(s.slug)));
+---
+<ul class="grid grid-3 service-cards">
+  {
+    list.map((s) => (
+      <li>
+        <a class="card card--link service-card" href={`/services/${s.slug}/`}>
+          <span class="service-card__icon">
+            <Icon name={s.icon} size={44} />
+          </span>
+          <h3>{s.name}</h3>
+          <p>{s.blurb}.</p>
+          <span class="more">Learn more →</span>
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .service-cards {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .service-card {
+    height: 100%;
+  }
+  .service-card__icon {
+    display: inline-grid;
+    place-items: center;
+    width: 68px;
+    height: 68px;
+    border-radius: 14px;
+    background: var(--blue-50);
+    color: var(--navy);
+    margin-bottom: 18px;
+  }
+  .service-card p {
+    color: var(--gray-600);
+  }
+</style>
