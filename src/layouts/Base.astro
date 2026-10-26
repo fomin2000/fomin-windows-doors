@@ -30,6 +30,7 @@ const business: Record<string, unknown> = {
   telephone: '+1-503-583-7956',
   email: SITE.email,
   image: ogImage,
+  logo: new URL('/logo.png', Astro.site).href,
   areaServed: salem.areas.map((a) => ({ '@type': 'City', name: `${a.name}, OR` })),
 };
 if (SITE.streetAddress) {
@@ -48,7 +49,8 @@ const schemas = [business, ...(schema ? (Array.isArray(schema) ? schema : [schem
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex" />}
     <meta name="theme-color" content="#15324F" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="48x48" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
     <meta property="og:type" content="website" />
