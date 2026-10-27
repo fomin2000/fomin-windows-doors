@@ -15,7 +15,7 @@ The site does not make up reviews, credentials or business facts. Everything bel
 ## Strongly recommended
 
 - [ ] **Photos** (natural daylight, your own work). Placeholders show the exact filename to use. Main ones:
-  - `hero.jpg` for the home page hero
+  - ~~`hero.jpg` for the home page hero~~ done: `hero-living-room.jpg` is the home page background
   - `about-team.jpg` for the owner/crew
   - `gallery-1.jpg` … `gallery-9.jpg` for real project photos (edit captions in `src/pages/gallery.astro`)
   - `windows-hero.jpg`, `doors-hero.jpg`, `services-hero.jpg`, `energy.jpg`
