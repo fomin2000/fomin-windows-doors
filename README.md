@@ -81,11 +81,15 @@ own or have permission to use.
 
 ### Brand logos
 
-Save each manufacturer's official logo in `src/assets/brands/` named after its slug: `milgard`, `alpine`,
-`andersen`, `ply-gem`, `jeld-wen`, `cascade`, `marvin` (`.svg` preferred, or `.png`/`.webp`). Get the files from the
-manufacturer's dealer portal or your sales rep rather than copying them from other websites, and don't recolor or
-alter them — manufacturers' brand guidelines generally forbid that. The site shows them on clean, uniform white cards.
-Until a logo file exists, a neutral name card is shown.
+Supplier logos live in `src/assets/brands/`, named after each brand's slug: `milgard`, `alpine`, `andersen`,
+`ply-gem`, `jeld-wen`, `cascade`, `marvin` (`.svg` preferred, or `.png`/`.webp`). Each logo is shown on a uniform
+white card and sized automatically so that wide and compact logos look balanced. If a brand has no file, its name is
+shown instead.
+
+Alpine and Cascade were only available as small white images, so `scripts/make-brand-logos.mjs` recolors them navy
+and upscales them; Marvin was supplied as AVIF and is converted to PNG. Original files are in
+`scripts/brand-sources/`. When you get official high-resolution versions, put them in `src/assets/brands/` and delete
+the old file with the same name.
 
 ### Opening a new branch
 
