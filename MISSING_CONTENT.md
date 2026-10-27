@@ -16,7 +16,7 @@ The site does not make up reviews, credentials or business facts. Everything bel
   - `about-team.jpg` for the owner/crew
   - More gallery projects are welcome anytime; the gallery currently shows 6 projects with real photos (`src/pages/gallery.astro`)
   - `windows-hero.jpg`, `doors-hero.jpg`, `services-hero.jpg`, `energy.jpg`
-  - `service-<slug>.jpg` for each service page (e.g. `service-dry-rot-repair.jpg`); `service-window-replacement.jpg` and `service-dry-rot-repair.webp` are done
+  - `service-<slug>.jpg` for each service page (e.g. `service-dry-rot-repair.jpg`); `service-window-replacement.jpg`, `service-dry-rot-repair.webp` and `service-window-door-trim.jpg` are done
   - `location-<slug>.jpg` for each location page (e.g. `location-salem-or.jpg`)
 - [x] **Brand logos** added for all seven suppliers. Alpine and Cascade were only available as small white images,
       so they were recolored navy and upscaled. Ask those manufacturers (or your rep) for official high-resolution
