@@ -14,6 +14,8 @@ import slider2 from '../assets/photos/gallery/sliding-door-2.jpg';
 import slider3 from '../assets/photos/gallery/sliding-door-3.jpg';
 import slider4 from '../assets/photos/gallery/sliding-door-4.jpg';
 import slider5 from '../assets/photos/gallery/sliding-door-5.jpg';
+import storm1 from '../assets/photos/gallery/storm-door-1.webp';
+import storm2 from '../assets/photos/gallery/storm-door-2.webp';
 import CtaBand from '../components/CtaBand.astro';
 import MissingNote from '../components/MissingNote.astro';
 
@@ -57,7 +59,15 @@ const items: GalleryItem[] = [
   },
   { name: 'gallery-6', caption: 'Exterior trim & flashing', icon: 'trim' },
   { name: 'gallery-7', caption: 'Casement windows', icon: 'casement' },
-  { name: 'gallery-8', caption: 'French patio doors', icon: 'french-door' },
+  {
+    name: 'gallery-8',
+    caption: 'Storm & screen door',
+    icon: 'storm-door',
+    photos: [
+      { src: storm1, alt: 'New full-view storm door installed over a front entry, with a transom window above' },
+      { src: storm2, alt: 'Storm door swung open, showing the gray front entry door behind it' },
+    ],
+  },
   { name: 'gallery-9', caption: 'Picture window', icon: 'picture' },
 ];
 ---
