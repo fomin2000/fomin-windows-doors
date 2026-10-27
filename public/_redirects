@@ -1,0 +1,6 @@
+# Cloudflare Pages redirects
+# Door styles no longer offered
+/doors/multi-slide/  /doors/  301
+/doors/multi-slide   /doors/  301
+/doors/bifold/       /doors/  301
+/doors/bifold        /doors/  301
