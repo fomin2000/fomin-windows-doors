@@ -1,7 +1,6 @@
 ---
 import Logo from './Logo.astro';
 import UiIcon from './UiIcon.astro';
-import MissingNote from './MissingNote.astro';
 import { SITE, ESTIMATE_HREF } from '../data/site';
 import { windows, doors } from '../data/products';
 import { services } from '../data/services';
@@ -76,7 +75,6 @@ const year = new Date().getFullYear();
         © {year} {SITE.name}. All rights reserved.
         {SITE.ccbLicense ? <> · Oregon CCB #{SITE.ccbLicense}</> : null}
       </p>
-      {!SITE.ccbLicense && <MissingNote inline>Oregon CCB license number (required in Oregon advertising).</MissingNote>}
       <p class="footer__legal">
         Brand names and trademarks belong to their respective owners and are used only to identify the products we
         install. Fomin Windows &amp; Doors is an independent company and is not affiliated with Renewal by Andersen.

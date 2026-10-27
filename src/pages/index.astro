@@ -10,7 +10,6 @@ import CertifiedSection from '../components/CertifiedSection.astro';
 import ProcessSteps from '../components/ProcessSteps.astro';
 import BrandGrid from '../components/BrandGrid.astro';
 import CtaBand from '../components/CtaBand.astro';
-import MissingNote from '../components/MissingNote.astro';
 import { SITE, ESTIMATE_HREF } from '../data/site';
 import { windows, doors } from '../data/products';
 import { locations, getLocation } from '../data/locations';
@@ -173,19 +172,6 @@ const featuredAreas = salem.areas.slice(0, 24);
         {featuredAreas.map((a) => <li>{a.name}</li>)}
       </ul>
       <p><a class="areas-link" href="/locations/salem-or/#service-area">See all {salem.areas.length} communities we serve →</a></p>
-    </div>
-  </section>
-
-  <section class="section" aria-labelledby="reviews-heading">
-    <div class="container">
-      <div class="section-head section-head--center">
-        <p class="eyebrow">Customer reviews</p>
-        <h2 id="reviews-heading">What our customers say</h2>
-      </div>
-      <MissingNote>
-        Real customer reviews. No reviews are shown yet — add genuine reviews (for example from your Google Business
-        Profile) with the customer's permission. Do not use made-up or paraphrased testimonials.
-      </MissingNote>
     </div>
   </section>
 

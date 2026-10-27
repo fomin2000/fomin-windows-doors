@@ -2,7 +2,6 @@
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import UiIcon from '../components/UiIcon.astro';
-import MissingNote from '../components/MissingNote.astro';
 import { SITE, estimateMailto } from '../data/site';
 ---
 <Base
@@ -63,8 +62,8 @@ import { SITE, estimateMailto } from '../data/site';
           <div><dt>Phone</dt><dd><a href={SITE.phoneHref}>{SITE.phoneDisplay}</a></dd></div>
           <div><dt>Email</dt><dd><a href={SITE.emailHref}>{SITE.email}</a></dd></div>
           <div><dt>Service area</dt><dd>Salem, OR and communities within ~{SITE.serviceRadiusMiles} miles — <a href="/locations/salem-or/#service-area">see the list</a></dd></div>
-          <div><dt>Hours</dt><dd>{SITE.businessHours ?? <MissingNote inline>business hours</MissingNote>}</dd></div>
-          <div><dt>Oregon CCB #</dt><dd>{SITE.ccbLicense ?? <MissingNote inline>license number</MissingNote>}</dd></div>
+          {SITE.businessHours && <div><dt>Hours</dt><dd>{SITE.businessHours}</dd></div>}
+          {SITE.ccbLicense && <div><dt>Oregon CCB #</dt><dd>{SITE.ccbLicense}</dd></div>}
           {SITE.streetAddress && <div><dt>Address</dt><dd>{SITE.streetAddress}</dd></div>}
         </dl>
       </div>

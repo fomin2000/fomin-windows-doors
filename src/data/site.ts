@@ -12,10 +12,9 @@ export const SITE = {
   homeBase: 'Salem, OR',
   serviceRadiusMiles: 40,
 
-  // ---- MISSING CONTENT ----------------------------------------------------
+  // ---- OPTIONAL DETAILS -----------------------------------------------------
   // Leave a value as `null` until you have the real information. Anything that
-  // is null shows a "Content needed" note on the site while
-  // SHOW_MISSING_CONTENT_NOTES is true, and is left out of structured data.
+  // is null is simply left off the site and out of structured data.
   ccbLicense: '253708' as string | null, // Oregon CCB number — required by Oregon law in advertising
   streetAddress: null as string | null,
   businessHours: null as string | null, // e.g. 'Mon–Fri 8am–5pm'
@@ -23,13 +22,6 @@ export const SITE = {
   ownerName: null as string | null,
   socialLinks: [] as { label: string; href: string }[],
 };
-
-/**
- * While true, pages show small dashed "Content needed" notes wherever real
- * business information is still missing. Set to false once everything is
- * filled in (or if you prefer to hide the notes before launch).
- */
-export const SHOW_MISSING_CONTENT_NOTES = true;
 
 export const ESTIMATE_HREF = '/contact/#estimate';
 
