@@ -9,6 +9,11 @@ import bay2 from '../assets/photos/gallery/bay-window-2.jpg';
 import bay3 from '../assets/photos/gallery/bay-window-3.jpg';
 import bay4 from '../assets/photos/gallery/bay-window-4.jpg';
 import bay5 from '../assets/photos/gallery/bay-window-5.jpg';
+import slider1 from '../assets/photos/gallery/sliding-door-1.jpg';
+import slider2 from '../assets/photos/gallery/sliding-door-2.jpg';
+import slider3 from '../assets/photos/gallery/sliding-door-3.jpg';
+import slider4 from '../assets/photos/gallery/sliding-door-4.jpg';
+import slider5 from '../assets/photos/gallery/sliding-door-5.jpg';
 import CtaBand from '../components/CtaBand.astro';
 import MissingNote from '../components/MissingNote.astro';
 
@@ -25,7 +30,18 @@ type GalleryItem = {
 const items: GalleryItem[] = [
   { name: 'gallery-1', caption: 'Window replacement', icon: 'double-hung' },
   { name: 'gallery-2', caption: 'Entry door installation', icon: 'entry-door' },
-  { name: 'gallery-3', caption: 'Sliding patio door', icon: 'sliding-door' },
+  {
+    name: 'gallery-3',
+    caption: 'Sliding patio door',
+    icon: 'sliding-door',
+    photos: [
+      { src: slider1, alt: 'Finished sliding patio door with white frames and fresh trim, seen from the covered patio' },
+      { src: slider2, alt: 'Old aluminum sliding patio door before replacement' },
+      { src: slider3, alt: 'New sliding door frame going in, with flashing membrane around the opening' },
+      { src: slider4, alt: 'New sliding patio door installed, with the exterior trim primed and ready for paint' },
+      { src: slider5, alt: 'Completed sliding patio door with painted trim' },
+    ],
+  },
   { name: 'gallery-4', caption: 'Dry rot repair — before & after', icon: 'dry-rot' },
   {
     name: 'gallery-5',
