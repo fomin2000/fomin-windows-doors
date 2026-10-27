@@ -21,6 +21,8 @@ import windowRep2 from '../assets/photos/gallery/window-replacement-2.jpg';
 import windowRep3 from '../assets/photos/gallery/window-replacement-3.jpg';
 import windowRep4 from '../assets/photos/gallery/window-replacement-4.jpg';
 import windowRep5 from '../assets/photos/gallery/window-replacement-5.jpg';
+import pictureWin1 from '../assets/photos/gallery/picture-window-1.jpg';
+import pictureWin2 from '../assets/photos/gallery/picture-window-2.jpg';
 import CtaBand from '../components/CtaBand.astro';
 import MissingNote from '../components/MissingNote.astro';
 
@@ -84,7 +86,15 @@ const items: GalleryItem[] = [
       { src: storm2, alt: 'Storm door swung open, showing the gray front entry door behind it' },
     ],
   },
-  { name: 'gallery-9', caption: 'Picture window', icon: 'picture' },
+  {
+    name: 'gallery-9',
+    caption: 'Picture window',
+    icon: 'picture',
+    photos: [
+      { src: pictureWin1, alt: 'New white picture window installed in dark trim on gray lap siding' },
+      { src: pictureWin2, alt: 'The old window before replacement, with badly cracked glass' },
+    ],
+  },
 ];
 ---
 <Base
