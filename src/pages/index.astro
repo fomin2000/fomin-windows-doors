@@ -1,5 +1,7 @@
 ---
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
+import heroImage from '../assets/photos/hero-living-room.jpg';
 import Photo from '../components/Photo.astro';
 import UiIcon from '../components/UiIcon.astro';
 import StyleGrid from '../components/StyleGrid.astro';
@@ -21,6 +23,17 @@ const featuredAreas = salem.areas.slice(0, 24);
   description="Window and door replacement, dry rot repair, waterproofing and trim in Salem, OR and within 40 miles. Certified master installers. Call (503) 583-7956 for a free estimate."
 >
   <section class="hero">
+    <Image
+      src={heroImage}
+      alt="Bright living room with tall white double-hung windows letting in natural daylight"
+      widths={[640, 960, 1280, 1600, 2000]}
+      sizes="100vw"
+      format="webp"
+      quality={72}
+      loading="eager"
+      fetchpriority="high"
+      class="hero__bg"
+    />
     <div class="container hero__inner">
       <div class="hero__text">
         <p class="eyebrow">Salem, Oregon · Windows &amp; Doors</p>
@@ -38,17 +51,6 @@ const featuredAreas = salem.areas.slice(0, 24);
           <li><UiIcon name="clipboard" size={20} />Free, no-pressure estimates</li>
           <li><UiIcon name="pin" size={20} />Salem + {SITE.serviceRadiusMiles}-mile service area</li>
         </ul>
-      </div>
-      <div class="hero__media">
-        <Photo
-          name="hero"
-          alt="Bright living room with new windows letting in natural daylight"
-          need="Hero photo — a bright, natural-daylight photo of a finished window or door project (ideally your own work)."
-          ratio="5 / 4"
-          icon="picture"
-          eager
-          sizes="(min-width: 900px) 46vw, 100vw"
-        />
       </div>
     </div>
   </section>
@@ -190,26 +192,65 @@ const featuredAreas = salem.areas.slice(0, 24);
 </Base>
 
 <style>
+  /* Full-bleed photo with the text on a frosted panel over its left side.
+     The photo is anchored right so the windows stay in view. */
   .hero {
-    background: linear-gradient(180deg, var(--gray) 0%, var(--white) 100%);
-    padding-block: clamp(40px, 7vw, 96px);
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    min-height: clamp(560px, 82vh, 780px);
+    padding-block: clamp(40px, 6vw, 80px);
+    background: var(--gray);
+  }
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 78% 40%;
   }
   .hero__inner {
-    display: grid;
-    gap: 40px;
-    align-items: center;
+    width: 100%;
   }
-  @media (min-width: 900px) {
-    .hero__inner {
-      grid-template-columns: 1.05fr 0.95fr;
-      gap: 56px;
-    }
+  .hero__text {
+    max-width: 600px;
+    padding: clamp(24px, 4vw, 44px);
+    border-radius: 20px;
+    background: rgb(255 255 255 / 84%);
+    border: 1px solid rgb(255 255 255 / 70%);
+    box-shadow: 0 24px 60px rgb(13 34 54 / 18%);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
   }
   .hero h1 {
     max-width: 15ch;
   }
   .hero .lead {
+    color: #44515e;
     margin-bottom: 28px;
+  }
+  /* Phones and tablets: the photo becomes a band across the top that frames the
+     windows, and the panel overlaps its bottom edge slightly */
+  @media (max-width: 899px) {
+    .hero {
+      --photo-h: clamp(240px, 60vw, 430px);
+      display: block;
+      min-height: 0;
+      padding-top: calc(var(--photo-h) - 48px);
+      padding-bottom: 24px;
+    }
+    .hero__bg {
+      height: var(--photo-h);
+      object-position: 88% 55%;
+    }
+    .hero__text {
+      max-width: none;
+      background: rgb(255 255 255 / 92%);
+    }
   }
   .hero__trust {
     list-style: none;
