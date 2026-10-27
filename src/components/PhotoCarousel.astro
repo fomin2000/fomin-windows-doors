@@ -1,0 +1,211 @@
+---
+// A swipeable photo carousel for one gallery project.
+// Arrows are hidden until the photo is hovered (or a control has keyboard focus),
+// then slide in from the edges. On touch screens, swipe between photos.
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import UiIcon from './UiIcon.astro';
+
+interface Props {
+  label: string; // accessible name, e.g. "Bay window project photos"
+  photos: { src: ImageMetadata; alt: string }[];
+  sizes?: string;
+}
+const { label, photos, sizes = '(min-width: 900px) 33vw, (min-width: 600px) 50vw, 100vw' } = Astro.props;
+---
+<div class="carousel" role="region" aria-roledescription="carousel" aria-label={label} data-carousel>
+  <ul class="carousel__track" data-track tabindex="0" aria-label={`${label} — use the arrow buttons or swipe`}>
+    {
+      photos.map((p, i) => (
+        <li class="carousel__slide" aria-roledescription="slide" aria-label={`${i + 1} of ${photos.length}`}>
+          <Image
+            src={p.src}
+            alt={p.alt}
+            widths={[480, 800, 1200, 1600]}
+            sizes={sizes}
+            format="webp"
+            quality={76}
+            loading={i === 0 ? 'eager' : 'lazy'}
+            class="carousel__img"
+            draggable="false"
+          />
+        </li>
+      ))
+    }
+  </ul>
+
+  <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous photo" data-prev>
+    <UiIcon name="chevron" size={22} />
+  </button>
+  <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next photo" data-next>
+    <UiIcon name="chevron" size={22} />
+  </button>
+
+  <div class="carousel__dots" aria-hidden="true">
+    {photos.map((_, i) => <span class:list={['carousel__dot', { 'is-active': i === 0 }]} data-dot />)}
+  </div>
+  <p class="carousel__count" aria-live="polite"><span data-current>1</span> / {photos.length}</p>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((root) => {
+    const track = root.querySelector<HTMLElement>('[data-track]')!;
+    const slides = Array.from(track.children) as HTMLElement[];
+    const dots = Array.from(root.querySelectorAll<HTMLElement>('[data-dot]'));
+    const current = root.querySelector<HTMLElement>('[data-current]')!;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const index = () => Math.round(track.scrollLeft / track.clientWidth);
+    const go = (i: number) => {
+      const n = slides.length;
+      const target = ((i % n) + n) % n; // wrap around at both ends
+      track.scrollTo({ left: target * track.clientWidth, behavior: reduceMotion ? 'auto' : 'smooth' });
+    };
+
+    root.querySelector('[data-prev]')!.addEventListener('click', () => go(index() - 1));
+    root.querySelector('[data-next]')!.addEventListener('click', () => go(index() + 1));
+    track.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        go(index() - 1);
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        go(index() + 1);
+      }
+    });
+
+    let frame = 0;
+    track.addEventListener(
+      'scroll',
+      () => {
+        cancelAnimationFrame(frame);
+        frame = requestAnimationFrame(() => {
+          const i = index();
+          current.textContent = String(i + 1);
+          dots.forEach((d, j) => d.classList.toggle('is-active', j === i));
+        });
+      },
+      { passive: true },
+    );
+  });
+</script>
+
+<style>
+  .carousel {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    background: var(--gray);
+    aspect-ratio: 4 / 3;
+  }
+  .carousel__track {
+    display: flex;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+  .carousel__track::-webkit-scrollbar {
+    display: none;
+  }
+  .carousel__track:focus-visible {
+    outline-offset: -4px;
+  }
+  .carousel__slide {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+  .carousel__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    user-select: none;
+  }
+
+  /* Arrows: invisible until the photo is hovered or a control is focused,
+     then they slide in from the edges */
+  .carousel__btn {
+    position: absolute;
+    top: 50%;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 0;
+    border-radius: 50%;
+    background: rgb(255 255 255 / 92%);
+    color: var(--navy);
+    box-shadow: 0 6px 18px rgb(13 34 54 / 25%);
+    cursor: pointer;
+    opacity: 0;
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1),
+      background-color 0.2s ease;
+  }
+  .carousel__btn--prev {
+    left: 12px;
+    transform: translate(-24px, -50%);
+  }
+  .carousel__btn--prev :global(svg) {
+    transform: rotate(90deg);
+  }
+  .carousel__btn--next {
+    right: 12px;
+    transform: translate(24px, -50%);
+  }
+  .carousel__btn--next :global(svg) {
+    transform: rotate(-90deg);
+  }
+  .carousel:hover .carousel__btn,
+  .carousel:focus-within .carousel__btn {
+    opacity: 1;
+    transform: translate(0, -50%);
+  }
+  .carousel__btn:hover {
+    background: var(--white);
+    color: var(--blue);
+  }
+
+  .carousel__dots {
+    position: absolute;
+    left: 50%;
+    bottom: 12px;
+    display: flex;
+    gap: 6px;
+    padding: 6px 8px;
+    border-radius: 999px;
+    background: rgb(13 34 54 / 45%);
+    transform: translateX(-50%);
+  }
+  .carousel__dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgb(255 255 255 / 55%);
+    transition:
+      background-color 0.25s ease,
+      transform 0.25s ease;
+  }
+  .carousel__dot.is-active {
+    background: var(--white);
+    transform: scale(1.25);
+  }
+  .carousel__count {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    margin: 0;
+    padding: 2px 10px;
+    border-radius: 999px;
+    background: rgb(13 34 54 / 55%);
+    color: var(--white);
+    font-size: 0.8125rem;
+    font-weight: 600;
+  }
+</style>

@@ -1,18 +1,44 @@
 ---
+import type { ImageMetadata } from 'astro';
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import Photo from '../components/Photo.astro';
+import PhotoCarousel from '../components/PhotoCarousel.astro';
+import bay1 from '../assets/photos/gallery/bay-window-1.jpg';
+import bay2 from '../assets/photos/gallery/bay-window-2.jpg';
+import bay3 from '../assets/photos/gallery/bay-window-3.jpg';
+import bay4 from '../assets/photos/gallery/bay-window-4.jpg';
+import bay5 from '../assets/photos/gallery/bay-window-5.jpg';
 import CtaBand from '../components/CtaBand.astro';
 import MissingNote from '../components/MissingNote.astro';
 
 // Add your own project photos to src/assets/photos/ named gallery-1.jpg,
-// gallery-2.jpg, ... and edit the captions below.
-const items = [
+// gallery-2.jpg, ... and edit the captions below. A project with several
+// photos lists them under `photos` (kept in src/assets/photos/gallery/) and is
+// shown as a carousel.
+type GalleryItem = {
+  name: string;
+  caption: string;
+  icon: string;
+  photos?: { src: ImageMetadata; alt: string }[];
+};
+const items: GalleryItem[] = [
   { name: 'gallery-1', caption: 'Window replacement', icon: 'double-hung' },
   { name: 'gallery-2', caption: 'Entry door installation', icon: 'entry-door' },
   { name: 'gallery-3', caption: 'Sliding patio door', icon: 'sliding-door' },
   { name: 'gallery-4', caption: 'Dry rot repair — before & after', icon: 'dry-rot' },
-  { name: 'gallery-5', caption: 'Bay window', icon: 'bay' },
+  {
+    name: 'gallery-5',
+    caption: 'Bay window',
+    icon: 'bay',
+    photos: [
+      { src: bay1, alt: 'Finished bay window with new dark frames and brown trim, reflecting the backyard patio' },
+      { src: bay2, alt: 'Bay window before replacement, with old aluminum frames and a weathered sill' },
+      { src: bay3, alt: 'Bay window before replacement, seen from the other side' },
+      { src: bay4, alt: 'New bay window units installed, with the surrounding trim primed and ready for paint' },
+      { src: bay5, alt: 'Completed bay window with new frames and painted brown trim' },
+    ],
+  },
   { name: 'gallery-6', caption: 'Exterior trim & flashing', icon: 'trim' },
   { name: 'gallery-7', caption: 'Casement windows', icon: 'casement' },
   { name: 'gallery-8', caption: 'French patio doors', icon: 'french-door' },
@@ -42,7 +68,11 @@ const items = [
           items.map((i) => (
             <li>
               <figure>
-                <Photo name={i.name} alt={i.caption} need={i.caption} icon={i.icon} sizes="(min-width: 900px) 33vw, (min-width: 600px) 50vw, 100vw" />
+                {i.photos ? (
+                  <PhotoCarousel label={`${i.caption} project photos`} photos={i.photos} />
+                ) : (
+                  <Photo name={i.name} alt={i.caption} need={i.caption} icon={i.icon} sizes="(min-width: 900px) 33vw, (min-width: 600px) 50vw, 100vw" />
+                )}
                 <figcaption>{i.caption}</figcaption>
               </figure>
             </li>
