@@ -4,3 +4,8 @@
 /doors/multi-slide   /doors/  301
 /doors/bifold/       /doors/  301
 /doors/bifold        /doors/  301
+# Window styles no longer offered
+/windows/awning/  /windows/  301
+/windows/awning   /windows/  301
+/windows/hopper/  /windows/  301
+/windows/hopper   /windows/  301

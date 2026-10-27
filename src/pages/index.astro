@@ -50,6 +50,7 @@ const featuredAreas = salem.areas.slice(0, 24);
           <li><UiIcon name="shield" size={20} />Certified Master Installers</li>
           <li><UiIcon name="clipboard" size={20} />Free, no-pressure estimates</li>
           <li><UiIcon name="pin" size={20} />Salem + {SITE.serviceRadiusMiles}-mile service area</li>
+          {SITE.ccbLicense && <li><UiIcon name="shield" size={20} />Oregon CCB #{SITE.ccbLicense}</li>}
         </ul>
       </div>
     </div>
@@ -193,11 +194,15 @@ const featuredAreas = salem.areas.slice(0, 24);
 
 <style>
   /* Full-bleed photo with the text on a frosted panel over its left side.
-     The photo is anchored right so the windows stay in view. */
+     The photo is anchored right so the windows stay in view.
+     The photo is fixed to the screen while the page scrolls over it: it is
+     position: fixed, and clip-path on the section keeps it showing only inside
+     the hero. (Unlike background-attachment: fixed, this also works on iPhone.) */
   .hero {
     position: relative;
     isolation: isolate;
     overflow: hidden;
+    clip-path: inset(0);
     display: flex;
     align-items: center;
     min-height: clamp(560px, 82vh, 780px);
@@ -205,11 +210,11 @@ const featuredAreas = salem.areas.slice(0, 24);
     background: var(--gray);
   }
   .hero__bg {
-    position: absolute;
+    position: fixed;
     inset: 0;
     z-index: -1;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     object-fit: cover;
     object-position: 78% 40%;
   }
@@ -244,6 +249,8 @@ const featuredAreas = salem.areas.slice(0, 24);
       padding-bottom: 24px;
     }
     .hero__bg {
+      /* Pinned just below the sticky header */
+      inset: var(--header-h) 0 auto 0;
       height: var(--photo-h);
       object-position: 88% 55%;
     }
