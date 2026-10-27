@@ -23,6 +23,8 @@ import windowRep4 from '../assets/photos/gallery/window-replacement-4.jpg';
 import windowRep5 from '../assets/photos/gallery/window-replacement-5.jpg';
 import pictureWin1 from '../assets/photos/gallery/picture-window-1.jpg';
 import pictureWin2 from '../assets/photos/gallery/picture-window-2.jpg';
+import frenchDoor1 from '../assets/photos/gallery/french-door-1.jpg';
+import frenchDoor2 from '../assets/photos/gallery/french-door-2.jpg';
 import CtaBand from '../components/CtaBand.astro';
 import MissingNote from '../components/MissingNote.astro';
 
@@ -75,7 +77,15 @@ const items: GalleryItem[] = [
       { src: bay5, alt: 'Completed bay window with new frames and painted brown trim' },
     ],
   },
-  { name: 'gallery-6', caption: 'Exterior trim & flashing', icon: 'trim' },
+  {
+    name: 'gallery-6',
+    caption: 'French patio doors',
+    icon: 'french-door',
+    photos: [
+      { src: frenchDoor1, alt: 'New hinged French patio doors with full-glass panels, installed in a stucco wall' },
+      { src: frenchDoor2, alt: 'The same French patio doors seen from an angle' },
+    ],
+  },
   { name: 'gallery-7', caption: 'Casement windows', icon: 'casement' },
   {
     name: 'gallery-8',
