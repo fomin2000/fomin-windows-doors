@@ -22,8 +22,10 @@ The site does not make up reviews, credentials or business facts. Everything bel
   - `service-<slug>.jpg` for each service page (e.g. `service-dry-rot-repair.jpg`)
   - `windows-<slug>.jpg` / `doors-<slug>.jpg` for each style page (e.g. `windows-casement.jpg`)
   - `location-<slug>.jpg` for each location page (e.g. `location-salem-or.jpg`)
-- [ ] **Official brand logos** for Milgard, Alpine, Andersen, Ply Gem, JELD-WEN, Cascade and Marvin. Get them from
-      each manufacturer's dealer portal or your rep, and save them in `src/assets/brands/` (see README).
+- [x] **Brand logos** added for all seven suppliers. Alpine and Cascade were only available as small white images,
+      so they were recolored navy and upscaled. Ask those manufacturers (or your rep) for official high-resolution
+      versions, ideally SVG, and drop them into `src/assets/brands/` as `alpine.svg` and `cascade.svg`. A file in
+      the folder replaces the old one automatically; delete the old `.png`.
 - [ ] **Business hours** → `businessHours` in `src/data/site.ts`
 - [ ] **Business/showroom address**, if you want it public → `streetAddress` in `src/data/site.ts`
 - [ ] **Customer reviews.** Add real ones only, with permission (for example from your Google Business Profile).

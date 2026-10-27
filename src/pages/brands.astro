@@ -3,7 +3,6 @@ import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import BrandGrid from '../components/BrandGrid.astro';
 import CtaBand from '../components/CtaBand.astro';
-import MissingNote from '../components/MissingNote.astro';
 import { brands } from '../data/brands';
 ---
 <Base
@@ -20,12 +19,6 @@ import { brands } from '../data/brands';
   <section class="section">
     <div class="container">
       <BrandGrid />
-      <MissingNote>
-        Official manufacturer logos. Download each logo from the manufacturer's dealer/partner portal or request it
-        from your sales rep, then save it as <code>src/assets/brands/&lt;name&gt;.svg</code> (milgard, alpine,
-        andersen, ply-gem, jeld-wen, cascade, marvin). Use the logos as provided — manufacturers usually do not allow
-        changes to their logos.
-      </MissingNote>
     </div>
   </section>
 
