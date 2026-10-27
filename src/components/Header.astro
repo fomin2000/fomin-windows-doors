@@ -48,7 +48,7 @@ const inSection = (g: NavGroup) =>
               </button>
               <div class="mega" id={`mega-${g.id}`} data-mega>
                 <div class="container mega__inner">
-                  <div class:list={['mega__main', { 'mega__main--split': g.sections.length > 1 }]}>
+                  <div class:list={['mega__main', { 'mega__main--split': g.sections.length > 1, 'mega__main--icons': g.iconGrid }]}>
                     {g.sections.map((sec, si) => (
                       <div class="mega__section">
                         <p class="mega__title">{sec.title}</p>
@@ -455,9 +455,24 @@ const inSection = (g: NavGroup) =>
     grid-template-columns: repeat(2, 1fr);
     gap: 6px 24px;
   }
+  /* Window and door style menus: options are centered both ways so the
+     space around them is even, however many styles there are */
+  .mega__main--icons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .mega__main--icons .mega__title {
+    text-align: center;
+  }
   .mega__grid--icons {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 8px;
+  }
+  .mega__grid--icons > li {
+    flex: 0 0 136px;
   }
   .mega__link {
     display: flex;

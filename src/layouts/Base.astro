@@ -33,6 +33,14 @@ const business: Record<string, unknown> = {
   logo: new URL('/logo.png', Astro.site).href,
   areaServed: salem.areas.map((a) => ({ '@type': 'City', name: `${a.name}, OR` })),
 };
+if (SITE.ccbLicense) {
+  business.hasCredential = {
+    '@type': 'EducationalOccupationalCredential',
+    credentialCategory: 'license',
+    name: `Oregon Construction Contractors Board license #${SITE.ccbLicense}`,
+    recognizedBy: { '@type': 'GovernmentOrganization', name: 'Oregon Construction Contractors Board' },
+  };
+}
 if (SITE.streetAddress) {
   business.address = { '@type': 'PostalAddress', streetAddress: SITE.streetAddress, addressRegion: 'OR', addressCountry: 'US' };
 }

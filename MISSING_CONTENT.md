@@ -6,10 +6,7 @@ The site does not make up reviews, credentials or business facts. Everything bel
 
 ## Required before launch
 
-- [ ] **Oregon CCB license number.** Oregon requires it in all advertising, including websites. → `ccbLicense` in `src/data/site.ts`
-- [ ] **Certified Master Installer details:** who issued the certification, installer name(s), certificate/ID
-      number, and year → `CERT` in `src/components/CertifiedSection.astro`. Optionally add a scan or photo of the
-      certificate as `src/assets/photos/certificate.jpg`.
+- [x] **Oregon CCB license number:** #253708, shown in the footer of every page, the home page, About and Contact.
 - [ ] **Company story** for the About page: founder, year founded, experience. Use only true details. → `src/pages/about.astro`
 
 ## Strongly recommended

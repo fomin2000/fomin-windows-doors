@@ -71,41 +71,6 @@ export const windows: Product[] = [
     considerations: ['Sashes swing outward, so check clearance near walkways and decks.', 'Some egress codes affect sizing in bedrooms — we check this during measuring.'],
   },
   {
-    slug: 'awning',
-    name: 'Awning Windows',
-    icon: 'awning',
-    blurb: 'Hinged on top, opens outward',
-    description:
-      'Awning windows for Oregon homes: top-hinged windows that open outward so you can ventilate even during light rain.',
-    intro: [
-      'Awning windows are hinged at the top and open outward from the bottom. The open sash acts like a small roof, so you can often keep it open during a light Willamette Valley drizzle.',
-    ],
-    bestFor: ['Bathrooms and basements', 'Above or below larger fixed windows', 'Rooms that need privacy and ventilation'],
-    highlights: [
-      { title: 'Rain-friendly ventilation', text: 'The angled sash helps shed light rain.' },
-      { title: 'Pairs well', text: 'Often combined with picture windows for light plus airflow.' },
-      { title: 'Privacy', text: 'Can be placed high on a wall.' },
-    ],
-    considerations: ['Opening size is smaller than a casement of the same dimensions.'],
-  },
-  {
-    slug: 'hopper',
-    name: 'Hopper Windows',
-    icon: 'hopper',
-    blurb: 'Hinged on the bottom, tilts inward',
-    description: 'Hopper windows for basements, bathrooms and transoms in Salem-area homes.',
-    intro: [
-      'Hopper windows are hinged at the bottom and tilt inward from the top. They are compact, simple, and common in basements, bathrooms and as transoms.',
-    ],
-    bestFor: ['Basements', 'Bathrooms and utility rooms', 'Transom positions above doors or windows'],
-    highlights: [
-      { title: 'Compact', text: 'Works in tight spaces where other styles do not fit.' },
-      { title: 'Secure', text: 'Small opening with a firm closing latch.' },
-      { title: 'Ventilation', text: 'Directs air upward into the room.' },
-    ],
-    considerations: ['Opens into the room, so keep window coverings in mind.'],
-  },
-  {
     slug: 'sliding',
     name: 'Sliding Windows',
     icon: 'sliding',
@@ -132,7 +97,7 @@ export const windows: Product[] = [
       'Picture windows installed in the Salem area: large fixed windows that frame your view and bring in natural light.',
     intro: [
       'Picture windows do not open, which allows for larger panes of glass and slimmer frames. The result is an unobstructed view and lots of natural daylight.',
-      'They are frequently combined with casement or awning windows on either side when ventilation is also needed.',
+      'They are frequently combined with casement or sliding windows on either side when ventilation is also needed.',
     ],
     bestFor: ['Living rooms and great rooms', 'Rooms with a view', 'Pairing with operable windows'],
     highlights: [

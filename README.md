@@ -4,7 +4,7 @@ Static website for **Fomin Windows & Doors** (fominwindowsdoors.com), built with
 designed for Cloudflare Pages. There is no server-side code: `npm run build` creates a plain HTML/CSS site in `dist/`.
 
 > **Before launch, read [`MISSING_CONTENT.md`](./MISSING_CONTENT.md).** It lists the real business details and
-> photos still needed, including the Oregon CCB license number, which Oregon law requires in advertising.
+> photos still needed.
 
 ## Quick start
 

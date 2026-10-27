@@ -81,14 +81,18 @@ const values = [
         <p class="eyebrow">Licensing &amp; insurance</p>
         <h2>Licensed in Oregon</h2>
         {SITE.ccbLicense ? (
-          <p class="lead">Oregon Construction Contractors Board license #{SITE.ccbLicense}.</p>
+          <p class="lead">
+            Licensed with the Oregon Construction Contractors Board, CCB #{SITE.ccbLicense}. You can look up any
+            Oregon contractor's license on the{' '}
+            <a href="https://search.ccb.state.or.us/search/" rel="noopener">CCB license search</a>.
+          </p>
         ) : (
           <MissingNote>
             Oregon CCB license number. Oregon law requires the CCB number in all advertising, including your website.
-            Add it as <code>ccbLicense</code> in <code>src/data/site.ts</code>. Also confirm what bonding/insurance
-            statements you want to show.
+            Add it as <code>ccbLicense</code> in <code>src/data/site.ts</code>.
           </MissingNote>
         )}
+        <MissingNote>Confirm what bonding and insurance statements you want to show here.</MissingNote>
       </div>
     </div>
   </section>
