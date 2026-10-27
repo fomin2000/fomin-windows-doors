@@ -13,7 +13,7 @@ The site does not make up reviews, credentials or business facts. Everything bel
 
 - [ ] **Photos** (natural daylight, your own work). Placeholders show the exact filename to use. Main ones:
   - ~~`hero.jpg` for the home page hero~~ done: `hero-living-room.jpg` is the home page background
-  - `about-team.jpg` for the owner/crew
+  - ~~`about-team.jpg` for the owner/crew~~ done
   - More gallery projects are welcome anytime; the gallery currently shows 6 projects with real photos (`src/pages/gallery.astro`)
   - `windows-hero.jpg`, `doors-hero.jpg`, `services-hero.jpg`, `energy.jpg`
   - `service-<slug>.jpg` for each service page (e.g. `service-dry-rot-repair.jpg`); `service-window-replacement.jpg`, `service-door-replacement.jpg`, `service-dry-rot-repair.webp`, `service-waterproofing.webp` and `service-window-door-trim.jpg` are done
