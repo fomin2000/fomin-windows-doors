@@ -194,7 +194,12 @@ a:hover {
   line-height: 1.2;
   text-decoration: none;
   cursor: pointer;
-  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
   white-space: nowrap;
 }
 .btn svg {
@@ -209,6 +214,11 @@ a:hover {
 .btn--primary:hover {
   background: var(--blue-700);
   color: var(--white);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgb(37 99 235 / 28%);
+}
+.btn:active {
+  transform: translateY(0);
 }
 .btn--outline {
   border-color: var(--navy);
@@ -277,12 +287,16 @@ a:hover {
   display: block;
   color: inherit;
   text-decoration: none;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
 }
 .card--link:hover {
   border-color: var(--blue);
   box-shadow: var(--shadow);
   color: inherit;
+  transform: translateY(-3px);
 }
 .card--link .more {
   color: var(--blue);
@@ -397,6 +411,22 @@ a:hover {
 .faq details p {
   padding-bottom: 12px;
   color: var(--gray-600);
+}
+
+/* Scroll reveal: content fades up gently as it comes into view.
+   Only applied when JavaScript runs and the visitor hasn't asked for reduced motion
+   (see the script in src/layouts/Base.astro). */
+html.js .reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+html.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
 }
 
 /* Leave room for the sticky mobile action bar */

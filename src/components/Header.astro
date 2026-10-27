@@ -3,11 +3,13 @@ import Logo from './Logo.astro';
 import Icon from './Icon.astro';
 import UiIcon from './UiIcon.astro';
 import { SITE, ESTIMATE_HREF } from '../data/site';
-import { navGroups, navLinks } from '../data/nav';
+import { navGroups, type NavGroup } from '../data/nav';
 
 const path = Astro.url.pathname;
 const isCurrent = (href: string) => path === href;
-const inSection = (href: string) => href !== '/' && path.startsWith(href);
+// Highlight a menu when the current page is one of its links
+const inSection = (g: NavGroup) =>
+  path.startsWith(g.href) || g.sections.some((sec) => sec.items.some((i) => i.href.split('#')[0] === path));
 ---
 <div class="utility">
   <div class="container utility__inner">
@@ -35,7 +37,7 @@ const inSection = (href: string) => href !== '/' && path.startsWith(href);
           navGroups.map((g) => (
             <li class="nav-item" data-nav-item>
               <button
-                class:list={['nav-trigger', { 'is-section': inSection(g.href) }]}
+                class:list={['nav-trigger', { 'is-section': inSection(g) }]}
                 type="button"
                 aria-expanded="false"
                 aria-controls={`mega-${g.id}`}
@@ -44,30 +46,39 @@ const inSection = (href: string) => href !== '/' && path.startsWith(href);
                 {g.label}
                 <UiIcon name="chevron" size={16} />
               </button>
-              <div class="mega" id={`mega-${g.id}`} data-mega hidden>
+              <div class="mega" id={`mega-${g.id}`} data-mega>
                 <div class="container mega__inner">
-                  <div class="mega__main">
-                    <p class="mega__title">{g.intro}</p>
-                    <ul class:list={['mega__grid', { 'mega__grid--icons': g.iconGrid }]}>
-                      {g.items.map((item) => (
-                        <li>
-                          <a href={item.href} class="mega__link" aria-current={isCurrent(item.href) ? 'page' : undefined}>
-                            {item.icon && (
-                              <span class="mega__icon">
-                                <Icon name={item.icon} size={g.iconGrid ? 56 : 36} />
-                              </span>
-                            )}
-                            <span class="mega__text">
-                              <span class="mega__label">
-                                {item.label}
-                                {item.badge && <span class="pill pill--soon">{item.badge}</span>}
-                              </span>
-                              {item.blurb && <span class="mega__blurb">{item.blurb}</span>}
-                            </span>
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
+                  <div class:list={['mega__main', { 'mega__main--split': g.sections.length > 1 }]}>
+                    {g.sections.map((sec, si) => (
+                      <div class="mega__section">
+                        <p class="mega__title">{sec.title}</p>
+                        <ul
+                          class:list={[
+                            'mega__grid',
+                            { 'mega__grid--icons': g.iconGrid, 'mega__grid--single': g.sections.length > 1 && si > 0 },
+                          ]}
+                        >
+                          {sec.items.map((item, i) => (
+                            <li style={`--i:${i}`}>
+                              <a href={item.href} class="mega__link" aria-current={isCurrent(item.href) ? 'page' : undefined}>
+                                {item.icon && (
+                                  <span class="mega__icon">
+                                    <Icon name={item.icon} size={g.iconGrid ? 56 : 36} />
+                                  </span>
+                                )}
+                                <span class="mega__text">
+                                  <span class="mega__label">
+                                    {item.label}
+                                    {item.badge && <span class="pill pill--soon">{item.badge}</span>}
+                                  </span>
+                                  {item.blurb && <span class="mega__blurb">{item.blurb}</span>}
+                                </span>
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
                   </div>
                   <aside class="mega__side">
                     {g.side ? (
@@ -83,7 +94,7 @@ const inSection = (href: string) => href !== '/' && path.startsWith(href);
                       </>
                     ) : (
                       <p class="mega__title">
-                        <a href={g.href}>{g.label} overview</a>
+                        <a href={g.href}>{g.label} overview →</a>
                       </p>
                     )}
                     <div class="mega__cta">
@@ -97,19 +108,6 @@ const inSection = (href: string) => href !== '/' && path.startsWith(href);
                   </aside>
                 </div>
               </div>
-            </li>
-          ))
-        }
-        {
-          navLinks.map((l) => (
-            <li class="nav-item">
-              <a
-                class:list={['nav-link', { 'is-section': inSection(l.href) }]}
-                href={l.href}
-                aria-current={isCurrent(l.href) ? 'page' : undefined}
-              >
-                {l.label}
-              </a>
             </li>
           ))
         }
@@ -130,7 +128,7 @@ const inSection = (href: string) => href !== '/' && path.startsWith(href);
     </div>
   </div>
 
-  <nav class="mobile-nav" id="mobile-nav" aria-label="Main" data-mobile-nav hidden>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Main" data-mobile-nav>
     <div class="container">
       <ul class="mobile-nav__list">
         {
@@ -141,37 +139,38 @@ const inSection = (href: string) => href !== '/' && path.startsWith(href);
                   {g.label}
                   <UiIcon name="chevron" size={20} />
                 </summary>
-                <ul class:list={['mobile-nav__sub', { 'mobile-nav__sub--icons': g.iconGrid }]}>
-                  {g.items.map((item) => (
-                    <li>
-                      <a href={item.href}>
-                        {item.icon && g.iconGrid && <Icon name={item.icon} size={40} />}
-                        <span>
-                          {item.label}
-                          {item.badge && <span class="pill pill--soon">{item.badge}</span>}
-                        </span>
-                      </a>
-                    </li>
+                <div class="mobile-nav__panel">
+                  {g.sections.map((sec) => (
+                    <>
+                      {g.sections.length > 1 && <p class="mobile-nav__heading">{sec.title}</p>}
+                      <ul class:list={['mobile-nav__sub', { 'mobile-nav__sub--icons': g.iconGrid }]}>
+                        {sec.items.map((item) => (
+                          <li>
+                            <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+                              {item.icon && g.iconGrid && <Icon name={item.icon} size={40} />}
+                              <span>
+                                {item.label}
+                                {item.badge && <span class="pill pill--soon">{item.badge}</span>}
+                              </span>
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </>
                   ))}
-                  <li class="mobile-nav__all">
-                    <a href={g.href}>View all {g.label.toLowerCase()} →</a>
-                  </li>
-                </ul>
+                  {g.iconGrid && (
+                    <a class="mobile-nav__all" href={g.href}>
+                      View all {g.label.toLowerCase()} →
+                    </a>
+                  )}
+                </div>
               </details>
-            </li>
-          ))
-        }
-        {
-          navLinks.map((l) => (
-            <li>
-              <a class="mobile-nav__link" href={l.href} aria-current={isCurrent(l.href) ? 'page' : undefined}>
-                {l.label}
-              </a>
             </li>
           ))
         }
       </ul>
       <div class="mobile-nav__contact">
+        <a class="btn btn--primary" href={ESTIMATE_HREF}>Get a free estimate</a>
         <a class="btn btn--outline" href={SITE.phoneHref}><UiIcon name="phone" />Call {SITE.phoneDisplay}</a>
         <a class="btn btn--outline" href={SITE.emailHref}><UiIcon name="mail" />Email us</a>
       </div>
@@ -191,7 +190,7 @@ const inSection = (href: string) => href !== '/' && path.startsWith(href);
       const btn = li.querySelector<HTMLButtonElement>('[data-nav-trigger]')!;
       const panel = li.querySelector<HTMLElement>('[data-mega]')!;
       btn.setAttribute('aria-expanded', String(open));
-      panel.hidden = !open;
+      panel.classList.toggle('is-open', open);
       li.classList.toggle('is-open', open);
     };
     const closeAll = (except?: HTMLElement) => items.forEach((li) => li !== except && setOpen(li, false));
@@ -232,13 +231,18 @@ const inSection = (href: string) => href !== '/' && path.startsWith(href);
       if (!header.contains(e.target as Node)) closeAll();
     });
 
+    // Soft shadow under the header once the page is scrolled
+    const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+
     // Mobile menu
     const toggle = header.querySelector<HTMLButtonElement>('[data-menu-toggle]');
     const mobileNav = header.querySelector<HTMLElement>('[data-mobile-nav]');
     if (toggle && mobileNav) {
       const setMenu = (open: boolean) => {
         toggle.setAttribute('aria-expanded', String(open));
-        mobileNav.hidden = !open;
+        mobileNav.classList.toggle('is-open', open);
         document.documentElement.classList.toggle('menu-open', open);
       };
       toggle.addEventListener('click', () => setMenu(toggle.getAttribute('aria-expanded') !== 'true'));
@@ -248,7 +252,7 @@ const inSection = (href: string) => href !== '/' && path.startsWith(href);
           toggle.focus();
         }
       });
-      window.matchMedia('(min-width: 1100px)').addEventListener('change', (e) => e.matches && setMenu(false));
+      window.matchMedia('(min-width: 980px)').addEventListener('change', (e) => e.matches && setMenu(false));
     }
   }
 </script>
@@ -301,6 +305,10 @@ const inSection = (href: string) => href !== '/' && path.startsWith(href);
     z-index: 100;
     background: var(--white);
     border-bottom: 1px solid var(--gray-200);
+    transition: box-shadow 0.3s ease;
+  }
+  .site-header.is-scrolled {
+    box-shadow: 0 6px 24px rgb(13 34 54 / 10%);
   }
   .header__inner {
     display: flex;
@@ -331,41 +339,44 @@ const inSection = (href: string) => href !== '/' && path.startsWith(href);
     align-items: center;
     gap: 4px;
     min-height: var(--header-h);
-    padding: 0 11px;
+    padding: 0 18px;
     white-space: nowrap;
     border: 0;
     background: none;
     font: inherit;
-    font-size: 0.9688rem;
+    font-size: 1.0313rem;
     font-weight: 600;
     color: var(--navy);
     text-decoration: none;
     cursor: pointer;
     position: relative;
+    transition: color 0.2s ease;
   }
   .nav-trigger::after,
   .nav-link::after {
     content: '';
     position: absolute;
-    left: 12px;
-    right: 12px;
+    left: 18px;
+    right: 18px;
     bottom: 0;
     height: 3px;
     border-radius: 3px 3px 0 0;
-    background: transparent;
+    background: var(--blue);
+    transform: scaleX(0);
+    transition: transform 0.25s ease;
   }
   .nav-trigger:hover,
   .nav-link:hover,
   .nav-item.is-open .nav-trigger {
     color: var(--blue);
   }
+  .nav-trigger:hover::after,
   .nav-item.is-open .nav-trigger::after,
-  .nav-link[aria-current='page']::after,
   .is-section::after {
-    background: var(--blue);
+    transform: scaleX(1);
   }
   .nav-trigger :global(svg) {
-    transition: transform 0.15s ease;
+    transition: transform 0.25s ease;
   }
   .nav-item.is-open .nav-trigger :global(svg) {
     transform: rotate(180deg);
@@ -379,6 +390,45 @@ const inSection = (href: string) => href !== '/' && path.startsWith(href);
     background: var(--white);
     border-top: 1px solid var(--gray-200);
     box-shadow: 0 24px 40px rgb(13 34 54 / 14%);
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-8px);
+    pointer-events: none;
+    transition:
+      opacity 0.22s ease,
+      transform 0.22s ease,
+      visibility 0s linear 0.22s;
+  }
+  .mega.is-open {
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    transition:
+      opacity 0.22s ease,
+      transform 0.22s ease,
+      visibility 0s;
+  }
+  /* Menu items drift in one after another */
+  .mega__grid li {
+    opacity: 0;
+    transform: translateY(6px);
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
+  }
+  .mega.is-open .mega__grid li {
+    opacity: 1;
+    transform: none;
+    transition-delay: calc(var(--i, 0) * 25ms + 60ms);
+  }
+  .mega__main--split {
+    display: grid;
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    gap: 40px;
+  }
+  .mega__grid--single {
+    grid-template-columns: 1fr !important;
   }
   .mega__inner {
     display: grid;
@@ -417,6 +467,9 @@ const inSection = (href: string) => href !== '/' && path.startsWith(href);
     border-radius: var(--radius);
     color: var(--navy);
     text-decoration: none;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
   }
   .mega__link:hover,
   .mega__link[aria-current='page'] {
@@ -441,11 +494,15 @@ const inSection = (href: string) => href !== '/' && path.startsWith(href);
     height: 84px;
     border-radius: 14px;
     background: var(--gray);
-    transition: background-color 0.15s ease;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease,
+      transform 0.25s ease;
   }
   .mega__grid--icons .mega__link:hover .mega__icon {
     background: var(--blue-50);
     color: var(--blue);
+    transform: translateY(-3px);
   }
   .mega__grid--icons .mega__link:hover {
     background: transparent;
@@ -562,7 +619,7 @@ const inSection = (href: string) => href !== '/' && path.startsWith(href);
       display: inline-flex;
     }
   }
-  @media (min-width: 1100px) {
+  @media (min-width: 980px) {
     .desktop-nav {
       display: block;
     }
@@ -571,7 +628,7 @@ const inSection = (href: string) => href !== '/' && path.startsWith(href);
       display: none !important;
     }
   }
-  @media (min-width: 1440px) {
+  @media (min-width: 1180px) {
     .header__phone {
       display: inline-flex;
     }
@@ -584,10 +641,43 @@ const inSection = (href: string) => href !== '/' && path.startsWith(href);
     left: 0;
     right: 0;
     height: calc(100dvh - var(--header-h));
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition:
+      opacity 0.25s ease,
+      transform 0.25s ease,
+      visibility 0s linear 0.25s;
     background: var(--white);
     overflow-y: auto;
     padding-block: 8px calc(var(--mobile-bar-h) + 32px);
     border-top: 1px solid var(--gray-200);
+  }
+  .mobile-nav.is-open {
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 0.25s ease,
+      transform 0.25s ease,
+      visibility 0s;
+  }
+  .mobile-nav details[open] .mobile-nav__panel {
+    animation: menu-reveal 0.28s ease both;
+  }
+  @keyframes menu-reveal {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+  }
+  .mobile-nav__heading {
+    margin: 4px 0 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray-600);
   }
   .mobile-nav__list,
   .mobile-nav__sub {
@@ -613,6 +703,9 @@ const inSection = (href: string) => href !== '/' && path.startsWith(href);
   }
   .mobile-nav summary::-webkit-details-marker {
     display: none;
+  }
+  .mobile-nav summary :global(svg) {
+    transition: transform 0.25s ease;
   }
   .mobile-nav details[open] summary :global(svg) {
     transform: rotate(180deg);
@@ -649,11 +742,11 @@ const inSection = (href: string) => href !== '/' && path.startsWith(href);
     flex: none;
   }
   .mobile-nav__all {
-    grid-column: 1 / -1;
-  }
-  .mobile-nav__all a {
+    display: inline-block;
+    margin: 0 0 16px 8px;
     color: var(--blue);
     font-weight: 650;
+    text-decoration: none;
   }
   .mobile-nav__contact {
     display: grid;
@@ -663,7 +756,14 @@ const inSection = (href: string) => href !== '/' && path.startsWith(href);
   /* Without JavaScript, fall back to CSS hover/focus for the mega menus */
   :global(html:not(.js)) .nav-item:hover .mega,
   :global(html:not(.js)) .nav-item:focus-within .mega {
-    display: block;
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+  :global(html:not(.js)) .mega__grid li {
+    opacity: 1;
+    transform: none;
   }
   :global(html.menu-open) {
     overflow: hidden;
