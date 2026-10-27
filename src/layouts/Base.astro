@@ -71,5 +71,55 @@ const schemas = [business, ...(schema ? (Array.isArray(schema) ? schema : [schem
     </main>
     <Footer />
     <MobileActionBar />
+    <script>
+      // Fade sections in as they scroll into view (skipped for reduced-motion visitors).
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+        const selectors = [
+          '.hero__text > *',
+          '.hero__media',
+          '.page-hero__text > *',
+          '.page-hero__media',
+          'main .section-head',
+          'main .grid > *',
+          'main .styles > li',
+          'main .steps > li',
+          'main .brands > li',
+          'main .split > *',
+          'main .area-chips',
+          'main .areas',
+          'main .gallery > li',
+          'main .faq',
+          '.cta-band__inner > *',
+        ];
+        const targets = document.querySelectorAll<HTMLElement>(selectors.join(','));
+        const observer = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (!entry.isIntersecting) continue;
+              const el = entry.target as HTMLElement;
+              observer.unobserve(el);
+              el.classList.add('is-visible');
+              // Hand the element back to its own hover transitions once revealed
+              const done = (ev: TransitionEvent) => {
+                if (ev.target !== el) return;
+                el.removeEventListener('transitionend', done);
+                el.classList.remove('reveal', 'is-visible');
+                el.style.removeProperty('--reveal-delay');
+              };
+              el.addEventListener('transitionend', done);
+            }
+          },
+          { rootMargin: '0px 0px -8% 0px', threshold: 0.08 },
+        );
+        targets.forEach((el) => {
+          if (el.closest('.reveal')) return; // already animated by a parent
+          const siblings = el.parentElement ? Array.from(el.parentElement.children) : [];
+          const index = Math.max(0, siblings.indexOf(el));
+          el.style.setProperty('--reveal-delay', `${Math.min(index, 6) * 70}ms`);
+          el.classList.add('reveal');
+          observer.observe(el);
+        });
+      }
+    </script>
   </body>
 </html>

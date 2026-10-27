@@ -10,26 +10,33 @@ export interface NavLink {
   badge?: string;
 }
 
+export interface NavSection {
+  title: string;
+  items: NavLink[];
+}
+
 export interface NavGroup {
   id: string;
   label: string;
   href: string; // overview page for the group
-  intro?: string;
-  items: NavLink[];
+  sections: NavSection[];
   iconGrid?: boolean; // show items as an icon grid (windows/doors)
   side?: { title: string; links: NavLink[] };
 }
 
-const statusBadge = (s: string) => (s === 'active' ? undefined : 'Coming soon');
-
+// The main navigation is kept to four menus so the header stays uncluttered.
 export const navGroups: NavGroup[] = [
   {
     id: 'windows',
     label: 'Windows',
     href: '/windows/',
-    intro: 'Explore window styles',
     iconGrid: true,
-    items: windows.map((w) => ({ label: w.name.replace(' Windows', ''), href: `/windows/${w.slug}/`, icon: w.icon, blurb: w.blurb })),
+    sections: [
+      {
+        title: 'Explore window styles',
+        items: windows.map((w) => ({ label: w.name.replace(' Windows', ''), href: `/windows/${w.slug}/`, icon: w.icon, blurb: w.blurb })),
+      },
+    ],
     side: {
       title: 'Windows',
       links: [
@@ -45,9 +52,18 @@ export const navGroups: NavGroup[] = [
     id: 'doors',
     label: 'Doors',
     href: '/doors/',
-    intro: 'Explore door styles',
     iconGrid: true,
-    items: doors.map((d) => ({ label: d.name.replace(' Doors', '').replace('Hinged ', ''), href: `/doors/${d.slug}/`, icon: d.icon, blurb: d.blurb })),
+    sections: [
+      {
+        title: 'Explore door styles',
+        items: doors.map((d) => ({
+          label: d.name.replace(' Doors', '').replace('Hinged ', ''),
+          href: `/doors/${d.slug}/`,
+          icon: d.icon,
+          blurb: d.blurb,
+        })),
+      },
+    ],
     side: {
       title: 'Doors',
       links: [
@@ -62,43 +78,45 @@ export const navGroups: NavGroup[] = [
     id: 'services',
     label: 'Services',
     href: '/services/',
-    intro: 'What we do',
-    items: [
-      ...services.map((s) => ({ label: s.name, href: `/services/${s.slug}/`, icon: s.icon, blurb: s.blurb })),
-      { label: 'Energy Savings & Tax Credits', href: '/energy-tax-credits/', icon: 'energy', blurb: 'What incentives exist today' },
+    sections: [
+      {
+        title: 'What we do',
+        items: [
+          ...services.map((s) => ({ label: s.name, href: `/services/${s.slug}/`, icon: s.icon, blurb: s.blurb })),
+          { label: 'Energy Savings & Tax Credits', href: '/energy-tax-credits/', icon: 'energy', blurb: 'What incentives exist today' },
+        ],
+      },
     ],
   },
   {
-    id: 'why',
-    label: 'Why Fomin',
+    id: 'company',
+    label: 'Company',
     href: '/about/',
-    intro: 'Why homeowners choose us',
-    items: [
-      { label: 'Certified Master Installers', href: '/about/#certified', icon: 'certified', blurb: 'Installation done right' },
-      { label: 'Our Process', href: '/about/#process', icon: 'trim', blurb: 'From consultation to clean-up' },
-      { label: 'Brands We Install', href: '/brands/', icon: 'picture', blurb: 'Trusted manufacturers' },
-      { label: 'Project Gallery', href: '/gallery/', icon: 'bay', blurb: 'See our work' },
+    sections: [
+      {
+        title: 'About Fomin',
+        items: [
+          { label: 'About Us', href: '/about/', blurb: 'Who we are and how we work' },
+          { label: 'Certified Master Installers', href: '/about/#certified', blurb: 'Installation done right' },
+          { label: 'Our Process', href: '/about/#process', blurb: 'From consultation to clean-up' },
+          { label: 'Brands We Install', href: '/brands/', blurb: 'Trusted manufacturers' },
+          { label: 'Project Gallery', href: '/gallery/', blurb: 'See our work' },
+          { label: 'Contact Us', href: '/contact/', blurb: 'Call, email or get an estimate' },
+        ],
+      },
+      {
+        title: 'Locations',
+        items: [
+          ...locations.map((l) => ({
+            label: `${l.city}, ${l.state}`,
+            href: `/locations/${l.slug}/`,
+            badge: l.status === 'active' ? undefined : 'Coming soon',
+            blurb: l.status === 'active' ? 'Now serving' : l.state === 'CA' ? 'Planned California branch' : 'Next Oregon branch',
+          })),
+          { label: 'All locations', href: '/locations/', blurb: 'Find your local branch' },
+          { label: 'Salem service area', href: '/locations/salem-or/#service-area', blurb: 'Communities within 40 miles' },
+        ],
+      },
     ],
   },
-  {
-    id: 'locations',
-    label: 'Locations',
-    href: '/locations/',
-    intro: 'Find your local branch',
-    items: [
-      ...locations.map((l) => ({
-        label: `${l.city}, ${l.state}`,
-        href: `/locations/${l.slug}/`,
-        badge: statusBadge(l.status),
-        blurb: l.status === 'active' ? 'Now serving' : l.state === 'CA' ? 'Planned California branch' : 'Next Oregon branch',
-      })),
-      { label: 'Salem service area cities', href: '/locations/salem-or/#service-area', blurb: 'Communities within 40 miles' },
-    ],
-  },
-];
-
-export const navLinks: NavLink[] = [
-  { label: 'Gallery', href: '/gallery/' },
-  { label: 'About', href: '/about/' },
-  { label: 'Contact', href: '/contact/' },
 ];

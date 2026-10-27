@@ -52,12 +52,17 @@ const { items, base, showBlurb = true } = Astro.props;
     border-radius: var(--radius-lg);
     color: var(--navy);
     text-decoration: none;
-    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.25s ease,
+      color 0.2s ease,
+      transform 0.25s ease;
   }
   .style:hover {
     border-color: var(--blue);
     box-shadow: var(--shadow);
     color: var(--blue);
+    transform: translateY(-3px);
   }
   .style__icon {
     display: grid;
@@ -66,6 +71,7 @@ const { items, base, showBlurb = true } = Astro.props;
     height: 96px;
     border-radius: 16px;
     background: var(--gray);
+    transition: background-color 0.25s ease;
   }
   .style:hover .style__icon {
     background: var(--blue-50);
