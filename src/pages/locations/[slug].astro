@@ -5,7 +5,6 @@ import Photo from '../../components/Photo.astro';
 import ServiceCards from '../../components/ServiceCards.astro';
 import CertifiedSection from '../../components/CertifiedSection.astro';
 import CtaBand from '../../components/CtaBand.astro';
-import MissingNote from '../../components/MissingNote.astro';
 import UiIcon from '../../components/UiIcon.astro';
 import { locations, type Location } from '../../data/locations';
 import { SITE } from '../../data/site';
@@ -64,10 +63,6 @@ const interestMailto = `${SITE.emailHref}?subject=${encodeURIComponent(`${l.city
             </div>
           )
         }
-        <MissingNote>
-          {l.city} branch details — {active ? 'office/showroom address (if you have one), business hours' : 'opening date, branch address, local phone number (if different), business hours'}
-          {isCA ? ', and a California CSLB contractor license number (required before offering work in California)' : ''}.
-        </MissingNote>
       </div>
       <div class="card branch-card">
         <h2 class="h3">{l.city} branch contact</h2>

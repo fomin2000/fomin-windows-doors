@@ -64,7 +64,6 @@ From then on every push to `main` deploys automatically, and every pull request 
 | ------------------------------------------------- | --------------------------------------- |
 | Phone, email, CCB #, address, hours               | `src/data/site.ts`                      |
 | Logo (then run `node scripts/make-icons.mjs`)     | `src/assets/logo/fomin-logo.png`        |
-| Hide/show the yellow "Content needed" notes       | `SHOW_MISSING_CONTENT_NOTES` in `src/data/site.ts` |
 | Window & door styles (pages + menu)               | `src/data/products.ts`                  |
 | Services (dry rot, waterproofing, trim, …)        | `src/data/services.ts`                  |
 | Locations, branch status, service-area cities     | `src/data/locations.ts`                 |

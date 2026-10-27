@@ -1,8 +1,8 @@
 # Missing content checklist
 
-The site does not make up reviews, credentials or business facts. Everything below is still needed. While
-`SHOW_MISSING_CONTENT_NOTES` is `true` in `src/data/site.ts`, each item shows on the site as a yellow
-**"Content needed"** note so it is easy to spot. Turn the notes off once they are filled in, or hide them before launch.
+The site does not make up reviews, credentials or business facts. The items below would make it stronger. Nothing
+on the site points them out to visitors: until they're added, those parts are simply left off (for example, there is
+no reviews section yet, and pages without a real photo show a neutral illustration).
 
 ## Required before launch
 
@@ -25,7 +25,7 @@ The site does not make up reviews, credentials or business facts. Everything bel
 - [ ] **Business hours** → `businessHours` in `src/data/site.ts`
 - [ ] **Business/showroom address**, if you want it public → `streetAddress` in `src/data/site.ts`
 - [ ] **Customer reviews.** Add real ones only, with permission (for example from your Google Business Profile).
-      The home page has a placeholder section.
+      Once you have some, a reviews section can be added back to the home page.
 - [ ] **Insurance/bonding statement** you want shown on the About page.
 - [ ] **Social media links**, if any → `socialLinks` in `src/data/site.ts`
 

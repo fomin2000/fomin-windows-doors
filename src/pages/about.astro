@@ -6,7 +6,6 @@ import CertifiedSection from '../components/CertifiedSection.astro';
 import ProcessSteps from '../components/ProcessSteps.astro';
 import BrandGrid from '../components/BrandGrid.astro';
 import CtaBand from '../components/CtaBand.astro';
-import MissingNote from '../components/MissingNote.astro';
 import { SITE } from '../data/site';
 
 const values = [
@@ -49,10 +48,6 @@ const values = [
           We are launching in Salem first, with plans to grow into a multi-branch company — starting with a Portland,
           Oregon branch and, in the future, branches in Sacramento and Roseville, California.
         </p>
-        <MissingNote>
-          Your company story — who founded the company, when{SITE.yearFounded ? '' : ' (year founded)'}, your
-          background and experience, and why you started the business. Use only true details.
-        </MissingNote>
       </div>
       <div>
         <h2 class="h3">What we stand for</h2>
@@ -78,21 +73,15 @@ const values = [
   <section class="section section--gray">
     <div class="container">
       <div class="section-head">
-        <p class="eyebrow">Licensing &amp; insurance</p>
+        <p class="eyebrow">Licensing</p>
         <h2>Licensed in Oregon</h2>
-        {SITE.ccbLicense ? (
+        {SITE.ccbLicense && (
           <p class="lead">
             Licensed with the Oregon Construction Contractors Board, CCB #{SITE.ccbLicense}. You can look up any
             Oregon contractor's license on the{' '}
             <a href="https://search.ccb.state.or.us/search/" rel="noopener">CCB license search</a>.
           </p>
-        ) : (
-          <MissingNote>
-            Oregon CCB license number. Oregon law requires the CCB number in all advertising, including your website.
-            Add it as <code>ccbLicense</code> in <code>src/data/site.ts</code>.
-          </MissingNote>
         )}
-        <MissingNote>Confirm what bonding and insurance statements you want to show here.</MissingNote>
       </div>
     </div>
   </section>
