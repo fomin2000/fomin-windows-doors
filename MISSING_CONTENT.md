@@ -17,7 +17,6 @@ The site does not make up reviews, credentials or business facts. Everything bel
   - `gallery-1.jpg` … `gallery-9.jpg` for real project photos (edit captions in `src/pages/gallery.astro`)
   - `windows-hero.jpg`, `doors-hero.jpg`, `services-hero.jpg`, `energy.jpg`
   - `service-<slug>.jpg` for each service page (e.g. `service-dry-rot-repair.jpg`)
-  - `windows-<slug>.jpg` / `doors-<slug>.jpg` for each style page (e.g. `windows-casement.jpg`)
   - `location-<slug>.jpg` for each location page (e.g. `location-salem-or.jpg`)
 - [x] **Brand logos** added for all seven suppliers. Alpine and Cascade were only available as small white images,
       so they were recolored navy and upscaled. Ask those manufacturers (or your rep) for official high-resolution
