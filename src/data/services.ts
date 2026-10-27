@@ -59,7 +59,7 @@ export const services: Service[] = [
       'Entry and patio door replacement in Salem, OR and the surrounding 40 miles. Properly flashed thresholds, adjusted hardware and finished trim.',
     intro: [
       'A door that sticks, drafts or leaks at the threshold is more than an annoyance — water at a door sill is one of the most common causes of hidden dry rot.',
-      'We replace entry doors, sliding and hinged patio doors, multi-slide and bifold doors, and storm doors, with careful attention to the sill pan, flashing and adjustment.',
+      'We replace entry doors, sliding and hinged French patio doors, and storm and screen doors, with careful attention to the sill pan, flashing and adjustment.',
     ],
     signs: {
       title: 'Signs it may be time for a new door',

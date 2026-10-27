@@ -269,40 +269,6 @@ export const doors: Product[] = [
     considerations: ['Needs clear swing space inside or outside.'],
   },
   {
-    slug: 'multi-slide',
-    name: 'Multi-Slide Doors',
-    icon: 'multi-slide',
-    blurb: 'Large panels that stack for a wide opening',
-    description: 'Multi-slide and multi-panel patio doors for Salem-area homes: wide glass walls that slide and stack open.',
-    intro: [
-      'Multi-slide doors use three or more large glass panels that slide and stack behind one another, creating a much wider opening than a standard patio door.',
-    ],
-    bestFor: ['Indoor-outdoor living', 'Large openings and remodels', 'Modern homes'],
-    highlights: [
-      { title: 'Wide opening', text: 'Panels stack to open a large span.' },
-      { title: 'Glass walls', text: 'Floods the room with daylight.' },
-      { title: 'Custom layouts', text: 'Many panel configurations.' },
-    ],
-    considerations: ['Larger openings may require structural header work.', 'Longer lead times are common.'],
-  },
-  {
-    slug: 'bifold',
-    name: 'Bifold Doors',
-    icon: 'bifold',
-    blurb: 'Panels that fold away like an accordion',
-    description: 'Bifold patio doors installed in the Salem area: folding glass panels that open nearly the whole wall.',
-    intro: [
-      'Bifold doors are made of panels hinged together that fold neatly to one or both sides, opening almost the entire width of the wall.',
-    ],
-    bestFor: ['Entertaining spaces', 'Kitchens that open to a patio', 'Maximum opening width'],
-    highlights: [
-      { title: 'Nearly full opening', text: 'Panels fold out of the way.' },
-      { title: 'Flexible', text: 'Use one panel as an everyday door on many layouts.' },
-      { title: 'Statement feature', text: 'A dramatic indoor-outdoor connection.' },
-    ],
-    considerations: ['Requires precise, level installation and a strong header.'],
-  },
-  {
     slug: 'storm',
     name: 'Storm & Screen Doors',
     icon: 'storm-door',
